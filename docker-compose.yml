@@ -1,0 +1,43 @@
+services:
+
+  mysql:
+    container_name: mysql-inventory-management
+    image: mysql:8.4
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: inventory_management
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - inventory-management-data:/var/lib/mysql
+
+    ports:
+      - "3307:3306"
+
+    networks:
+      - inventory-management-network
+
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-inventory-management
+    image: maildev/maildev
+
+    ports:
+      - "1081:1080"
+      - "1026:1025"
+
+    networks:
+      - inventory-management-network
+
+    restart: unless-stopped
+
+networks:
+  inventory-management-network:
+    driver: bridge
+
+volumes:
+  inventory-management-data:
+    driver: local
