@@ -3,6 +3,7 @@ package com.khaledamin.ims.core.constant;
 public enum SystemDomain {
     BOOTSTRAP,
     CAPABILITY,
+    ORGANIZATION,
     ACCOUNT,
     ROLE,
     CLIENT,

@@ -52,4 +52,8 @@ public interface BusinessEventLogger {
     void capabilityViewed(String capabilityCode);
     void capabilityListed(String domain);
 
+    // Organization events
+    void organizationCreated(String organizationCode);
+    void organizationUpdated(String organizationCode);
+    void organizationViewed(String organizationCode);
 }

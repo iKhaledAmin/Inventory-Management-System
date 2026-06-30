@@ -56,4 +56,10 @@ public enum BusinessEvent {
     EMAIL_RETRY_FAILED,
 
 
+    // Organization events
+    ORGANIZATION_CREATED,
+    ORGANIZATION_UPDATED,
+    ORGANIZATION_VIEWED,
+
+
 }

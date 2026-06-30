@@ -2,7 +2,11 @@ package com.khaledamin.ims.media.core.model;
 
 public enum MediaOwnerType {
 
-    PROFILE("profile");
+    PROFILE("profile"),
+    ORGANIZATION("organization"),
+
+
+    ;
 
     private final String folder;
 

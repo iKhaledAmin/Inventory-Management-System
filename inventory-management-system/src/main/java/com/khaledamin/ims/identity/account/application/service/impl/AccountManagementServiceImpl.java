@@ -20,6 +20,8 @@ import com.khaledamin.ims.identity.account.exception.AccountTechnicalException;
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
+import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
+import com.khaledamin.ims.organization.domain.value.OrganizationName;
 import com.khaledamin.ims.identity.role.application.service.RoleQueryService;
 import com.khaledamin.ims.identity.role.domain.model.Role;
 import com.khaledamin.ims.media.core.model.MediaOwnerType;
@@ -46,6 +48,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     private final AccountApplicationValidator accountValidator;
     private final PasswordEncoder passwordEncoder;
     private final BusinessEventLogger businessEventLogger;
+    private final OrganizationManagementService organizationManagementService;
 
 
     @Transactional
@@ -82,7 +85,14 @@ public class AccountManagementServiceImpl implements AccountManagementService {
                 saved.getAccountCode()
         );
 
-        // todo :- create organization
+        OrganizationName organizationName = OrganizationName.of(
+                saved.getProfile().getFirstName() + " organization"
+        );
+        organizationManagementService.create(
+                organizationName,
+                null,
+                saved
+        );
 
         return saved;
     }

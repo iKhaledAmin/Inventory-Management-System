@@ -428,9 +428,47 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .log("capabilities listed");
     }
 
+
     // --------------------- End Capability events --------------------- //
 
 
+
+    // --------------------- Organization events --------------------- //
+
+    @Override
+    public void organizationCreated(String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORGANIZATION)
+                .addKeyValue("event", BusinessEvent.ORGANIZATION_CREATED)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("organization created");
+    }
+
+    @Override
+    public void organizationUpdated(String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORGANIZATION)
+                .addKeyValue("event", BusinessEvent.ORGANIZATION_UPDATED)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("organization updated");
+    }
+
+    @Override
+    public void organizationViewed(String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORGANIZATION)
+                .addKeyValue("event", BusinessEvent.ORGANIZATION_VIEWED)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("organization viewed");
+    }
+
+    // --------------------- End Organization events --------------------- //
 
 
 }
