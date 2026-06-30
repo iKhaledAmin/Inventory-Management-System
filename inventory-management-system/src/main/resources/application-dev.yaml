@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -43,9 +43,9 @@ application:
 
   bootstrap:
     admin:
-      username: admin
+      username: system-admin
       password: ${BOOTSTRAP_ADMIN_PASSWORD}
-      email: admin@inventory.local
+      email: system-admin@example.com
 
   security:
     jwt:

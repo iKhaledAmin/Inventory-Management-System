@@ -1,11 +1,12 @@
 package com.khaledamin.ims.core.logging.core;
 
+import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
 import org.slf4j.MDC;
 public final class ActorLoggingContext {
 
     private ActorLoggingContext() {}
 
-    public static void put( principal) {
+    public static void put(AuthenticatedPrincipal principal) {
 
         MDC.put(
                 LoggingConstants.ACTOR_TYPE,

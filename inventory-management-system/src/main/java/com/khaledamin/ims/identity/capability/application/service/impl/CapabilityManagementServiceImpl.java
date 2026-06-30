@@ -2,7 +2,7 @@ package com.khaledamin.ims.identity.capability.application.service.impl;
 
 
 import com.khaledamin.ims.core.constant.SystemDomain;
-import com.khaledamin.ims.core.logging.audit.BusinessEventLogger;
+import com.khaledamin.ims.core.logging.event.BusinessEventLogger;
 import com.khaledamin.ims.identity.capability.application.service.CapabilityManagementService;
 import com.khaledamin.ims.identity.capability.application.service.CapabilityQueryService;
 import com.khaledamin.ims.identity.capability.domain.command.CapabilityCreateCommand;

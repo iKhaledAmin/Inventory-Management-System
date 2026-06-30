@@ -1,7 +1,7 @@
 package com.khaledamin.ims.identity.core.model;
 
 
-import com.khaledamin.ims.core.policy.AbstractPolicy;
+import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
 import com.khaledamin.ims.identity.core.generator.ActorCodeGenerator;
 import com.khaledamin.ims.identity.core.resolver.ActorSourceResolver;
 
