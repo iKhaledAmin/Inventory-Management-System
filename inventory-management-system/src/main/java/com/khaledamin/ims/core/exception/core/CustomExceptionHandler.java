@@ -2,6 +2,7 @@ package com.khaledamin.ims.core.exception.core;
 
 
 
+import com.khaledamin.ims.auth.security.exception.AuthorizationError;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.core.api.response.ApiResponseFactory;
 import com.khaledamin.ims.core.api.response.ErrorResponse;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -169,31 +171,29 @@ public class CustomExceptionHandler {
                 .body(ApiResponseFactory.error(errorResponse));
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
 
-    // TODO handleAccessDeniedException
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
-//
-//        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
-//
-//        securityEventLogger.authorizationDenied(
-//                request.getMethod(),
-//                request.getRequestURI(),
-//                ex.getMessage()
-//        );
-//
-//        ErrorResponse errorResponse = ErrorResponse.builder()
-//                .status(error.getStatus().value())
-//                .code(error.getCode())
-//                .message(error.getMessage())
-//                .details(Map.of())
-//                .path(request.getRequestURI())
-//                .build();
-//
-//        return ResponseEntity
-//                .status(error.getStatus())
-//                .body(ApiResponseFactory.error(errorResponse));
-//    }
+        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
+
+        securityEventLogger.authorizationDenied(
+                request.getMethod(),
+                request.getRequestURI(),
+                ex.getMessage()
+        );
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .status(error.getStatus().value())
+                .code(error.getCode())
+                .message(error.getMessage())
+                .details(Map.of())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(error.getStatus())
+                .body(ApiResponseFactory.error(errorResponse));
+    }
 
 
     @ExceptionHandler(Exception.class)

@@ -1,6 +1,7 @@
 package com.khaledamin.ims.identity.role.domain.definition;
 
 import com.khaledamin.ims.identity.capability.domain.value.CapabilityCode;
+import com.khaledamin.ims.organization.domain.capability.OrganizationCapability;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -15,7 +16,8 @@ public class OwnerCapability implements RoleCapabilityDefinition {
     @Override
     public Set<CapabilityCode> getCapabilityCodes() {
         return Set.of(
-                // todo
+                OrganizationCapability.ORGANIZATION_UPDATE.getCode(),
+                OrganizationCapability.ORGANIZATION_READ.getCode()
         );
     }
 }

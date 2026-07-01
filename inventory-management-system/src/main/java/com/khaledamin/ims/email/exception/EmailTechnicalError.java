@@ -1,0 +1,49 @@
+package com.khaledamin.ims.email.exception;
+
+
+import com.khaledamin.ims.core.constant.SystemDomain;
+import com.khaledamin.ims.core.exception.technical.TechnicalError;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum EmailTechnicalError implements TechnicalError {
+
+    UPDATE_COMMAND_NULL(
+            SystemDomain.EMAIL,
+            "EMAIL_UPDATE_COMMAND_NULL",
+            "Email update command is null"
+    ),
+
+    EMAIL_NULL(
+            SystemDomain.EMAIL,
+            "EMAIL_NULL",
+            "Email is null"
+    ),
+
+    FAILURE_REASON_NULL(
+            SystemDomain.EMAIL,
+            "EMAIL_FAILURE_REASON_NULL",
+            "Failure reason is null"
+    ),
+
+
+    TEMPLATE_RENDERING_FAILED(
+            SystemDomain.EMAIL,
+            "EMAIL_TEMPLATE_RENDERING_FAILED",
+                    "Failed to render email template"
+    ),
+
+    EMAIL_SENDING_FAILED(
+            SystemDomain.EMAIL,
+            "EMAIL_SENDING_FAILED",
+                    "Failed to send email"
+    ),
+
+
+    ;
+    private final SystemDomain domain;
+    private final String code;
+    private final String message;
+}

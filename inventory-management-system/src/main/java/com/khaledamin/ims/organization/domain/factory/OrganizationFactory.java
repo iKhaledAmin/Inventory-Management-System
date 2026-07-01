@@ -1,6 +1,7 @@
 package com.khaledamin.ims.organization.domain.factory;
 
 import com.khaledamin.ims.identity.account.domain.model.Account;
+import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.value.OrganizationDescription;
@@ -13,12 +14,12 @@ import org.springframework.stereotype.Component;
 public class OrganizationFactory {
     private final OrganizationCodeGenerator codeGenerator;
 
-    public Organization create(OrganizationName name , OrganizationDescription description, Account owner) {
+    public Organization create(OrganizationCreateRequest request, Account owner) {
 
         OrganizationCreateCommand command = OrganizationCreateCommand.of(
                 codeGenerator.generate(),
-                name,
-                description
+                OrganizationName.of(request.getName()),
+                OrganizationDescription.of(request.getDescription())
         );
 
         return Organization.create(command,owner);

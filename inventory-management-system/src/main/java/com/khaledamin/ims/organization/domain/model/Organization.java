@@ -58,10 +58,10 @@ public class Organization extends LifecycleAuditableEntity {
     @JoinColumn(name = "owner_id",nullable = false)
     private Account owner;
 
-    // now only one Client actor
-    // later may be more (Account, Client, etc...)
-    @Builder.Default
-    private Set<ActorIdentity> memberIdentities = new HashSet<>();
+//    // now only one Client actor
+//    // later may be more (Account, Client, etc...)
+//    @Builder.Default
+//    private Set<ActorIdentity> memberIdentities = new HashSet<>();
 
 
     // --------------------------------------------------- End Relations --------------------------------------------------- //
@@ -79,9 +79,10 @@ public class Organization extends LifecycleAuditableEntity {
         }
 
         return Organization.builder()
+                .code(command.code().toString())
                 .name(command.name().toString())
                 .description(command.description().toString())
-                .memberIdentities(new HashSet<>())
+                //.memberIdentities(new HashSet<>())
                 .status(OrganizationStatus.ACTIVE)
                 .owner(owner)
                 .build();
@@ -123,20 +124,20 @@ public class Organization extends LifecycleAuditableEntity {
         this.image = image;
     }
 
-    public void addMember(ActorIdentity memberIdentity){
-        if (memberIdentity == null){
-            throw OrganizationTechnicalException.nullMemberIdentity();
-        }
-
-        if (!this.hasMember(memberIdentity)){
-            memberIdentities.add(memberIdentity);
-        }
-
-    }
-
-    public boolean hasMember(ActorIdentity memberIdentity){
-        return memberIdentities.contains(memberIdentity);
-    }
+//    public void addMember(ActorIdentity memberIdentity){
+//        if (memberIdentity == null){
+//            throw OrganizationTechnicalException.nullMemberIdentity();
+//        }
+//
+//        if (!this.hasMember(memberIdentity)){
+//            memberIdentities.add(memberIdentity);
+//        }
+//
+//    }
+//
+//    public boolean hasMember(ActorIdentity memberIdentity){
+//        return memberIdentities.contains(memberIdentity);
+//    }
 
     // ---------------------------------------------- End Methods ----------------------------------------------- //
 

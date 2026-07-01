@@ -20,8 +20,8 @@ import com.khaledamin.ims.identity.account.exception.AccountTechnicalException;
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
+import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
-import com.khaledamin.ims.organization.domain.value.OrganizationName;
 import com.khaledamin.ims.identity.role.application.service.RoleQueryService;
 import com.khaledamin.ims.identity.role.domain.model.Role;
 import com.khaledamin.ims.media.core.model.MediaOwnerType;
@@ -85,13 +85,16 @@ public class AccountManagementServiceImpl implements AccountManagementService {
                 saved.getAccountCode()
         );
 
-        OrganizationName organizationName = OrganizationName.of(
-                saved.getProfile().getFirstName() + " organization"
-        );
+
+        // this temporarily until creation the organization via dashboard
+        OrganizationCreateRequest organizationRequest = OrganizationCreateRequest.builder()
+                .name(saved.getProfile().getFirstName() + " organization")
+                .description(saved.getProfile().getFirstName() + " organization")
+                .build();
+
         organizationManagementService.create(
-                organizationName,
-                null,
-                saved
+                organizationRequest,
+                saved.getActorCode()
         );
 
         return saved;

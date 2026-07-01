@@ -17,7 +17,7 @@ public enum OrganizationCapability implements CapabilityDefinition {
     ),
 
     ORGANIZATION_READ(
-            "ORGANIZATION_UPDATE",
+            "ORGANIZATION_READ",
             "organization",
             "read",
             "Read Organization",

@@ -5,7 +5,9 @@ import com.khaledamin.ims.core.logging.event.BusinessEventLogger;
 import com.khaledamin.ims.identity.account.application.service.AccountQueryService;
 import com.khaledamin.ims.identity.account.domain.model.Account;
 import com.khaledamin.ims.identity.core.model.Actor;
+import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
+import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
@@ -14,8 +16,6 @@ import com.khaledamin.ims.organization.domain.factory.OrganizationFactory;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.model.OrganizationImagePreset;
 import com.khaledamin.ims.organization.domain.repository.OrganizationRepository;
-import com.khaledamin.ims.organization.domain.value.OrganizationDescription;
-import com.khaledamin.ims.organization.domain.value.OrganizationName;
 import com.khaledamin.ims.organization.exception.OrganizationTechnicalException;
 import com.khaledamin.ims.media.core.model.MediaOwnerType;
 import com.khaledamin.ims.media.image.application.service.ImageService;
@@ -39,10 +39,15 @@ public class OrganizationManagementServiceImpl implements OrganizationManagement
 
     @Transactional
     @Override
-    public Organization create(OrganizationName name , OrganizationDescription description, Account owner){
+    public Organization create(OrganizationCreateRequest request, ActorCode ownerCode){
+
+        Account owner = accountQueryService.getByAccountCode(ownerCode);
 
         // Domain logic
-        Organization newOrganization = organizationFactory.create(name,description,owner);
+        Organization newOrganization = organizationFactory.create(
+                request,
+                owner
+        );
 
         // Persist
         Organization saved = organizationRepository.save(newOrganization);
