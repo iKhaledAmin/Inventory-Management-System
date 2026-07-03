@@ -1,6 +1,5 @@
 package com.khaledamin.ims.core.logging.event;
 
-
 import java.util.List;
 
 public interface BusinessEventLogger {
@@ -56,4 +55,14 @@ public interface BusinessEventLogger {
     void organizationCreated(String organizationCode);
     void organizationUpdated(String organizationCode);
     void organizationViewed(String organizationCode);
+
+    // Stock events
+    void stockCreated(String stockCode);
+    void StockUpdated(String stockCode);
+    void stockDeleted(String stockCode);
+    void stockViewed(String stockCode);
+    void stockRestocked(String stockCode );
+    void stockListed(String organizationCode, int page, int size, String sortBy, String direction);
+    void stockBatchesListed(String stockCode, int page, int size, String sortBy, String direction);
+
 }

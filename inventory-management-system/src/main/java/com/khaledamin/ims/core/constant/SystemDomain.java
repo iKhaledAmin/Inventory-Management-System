@@ -13,6 +13,7 @@ public enum SystemDomain {
     IDENTITY,
     SECURITY,
     MEDIA,
+    STOCK,
 
 
 }

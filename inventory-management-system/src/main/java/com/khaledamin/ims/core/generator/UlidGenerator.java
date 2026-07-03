@@ -4,10 +4,9 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UlidGenerator implements UniqueIdentifierGenerator {
+public class UlidGenerator {
 
-    @Override
-    public String generate() {
+    public static String generate() {
         return UlidCreator.getUlid().toString();
     }
 }

@@ -8,8 +8,7 @@ import com.khaledamin.ims.media.core.url.MediaUrlResolver;
 import com.khaledamin.ims.media.image.application.model.GeneratedImageVariant;
 import com.khaledamin.ims.media.image.application.service.ImageResizer;
 import com.khaledamin.ims.media.image.application.service.ImageService;
-import com.khaledamin.ims.media.image.domain.factory.ImageFactory;
-import com.khaledamin.ims.media.image.domain.factory.StorageKeyGenerator;
+import com.khaledamin.ims.media.image.domain.generator.StorageKeyGenerator;
 import com.khaledamin.ims.media.image.domain.model.Image;
 import com.khaledamin.ims.media.image.domain.model.ImagePreset;
 import com.khaledamin.ims.media.image.domain.model.ImageResolution;
@@ -31,17 +30,15 @@ import java.util.Set;
 public class ImageServiceImpl implements ImageService {
 
     private final StorageProvider storageProvider;
-    private final ImageFactory imageFactory;
     private final ImageResizer imageResizer;
     private final MediaUrlResolver mediaUrlResolver;
-    private final StorageKeyGenerator storageKeyGenerator;
 
     @Override
     public Image create(MultipartFile file, ImagePreset preset, MediaOwnerType ownerType) {
 
         validate(file, preset, ownerType);
 
-        Image image = imageFactory.create(file);
+        Image image = Image.create(file);
 
         BufferedImage source = readImage(file);
 
@@ -53,7 +50,7 @@ public class ImageServiceImpl implements ImageService {
                 GeneratedImageVariant generatedVariant = imageResizer.resize(source, resolution);
 
                 String storageKey =
-                        storageKeyGenerator.generate(
+                        StorageKeyGenerator.generate(
                                 ownerType,
                                 image.getCode(),
                                 resolution

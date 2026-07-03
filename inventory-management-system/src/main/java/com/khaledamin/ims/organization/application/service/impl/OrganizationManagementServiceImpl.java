@@ -2,17 +2,15 @@ package com.khaledamin.ims.organization.application.service.impl;
 
 import com.khaledamin.ims.core.exception.core.BaseException;
 import com.khaledamin.ims.core.logging.event.BusinessEventLogger;
-import com.khaledamin.ims.identity.account.application.service.AccountQueryService;
-import com.khaledamin.ims.identity.account.domain.model.Account;
 import com.khaledamin.ims.identity.core.model.Actor;
-import com.khaledamin.ims.identity.core.model.ActorCode;
+import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
 import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
+import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.command.OrganizationUpdateCommand;
-import com.khaledamin.ims.organization.domain.factory.OrganizationFactory;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.model.OrganizationImagePreset;
 import com.khaledamin.ims.organization.domain.repository.OrganizationRepository;
@@ -30,24 +28,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class OrganizationManagementServiceImpl implements OrganizationManagementService {
     private final OrganizationQueryService organizationQueryService;
     private final OrganizationRepository organizationRepository;
-    private final OrganizationFactory organizationFactory;
     private final ImageService imageService;
     private final ActorProvider actorProvider;
-    private final AccountQueryService accountQueryService;
     private final BusinessEventLogger businessEventLogger;
 
 
     @Transactional
     @Override
-    public Organization create(OrganizationCreateRequest request, ActorCode ownerCode){
+    public Organization create(OrganizationCreateRequest request, ActorIdentity ownerIdentity){
 
-        Account owner = accountQueryService.getByAccountCode(ownerCode);
+        OrganizationCreateCommand command = OrganizationCreateCommand.of(request);
 
         // Domain logic
-        Organization newOrganization = organizationFactory.create(
-                request,
-                owner
-        );
+        Organization newOrganization = Organization.create(command);
+
+        newOrganization.attachOwner(ownerIdentity);
 
         // Persist
         Organization saved = organizationRepository.save(newOrganization);
@@ -65,9 +60,10 @@ public class OrganizationManagementServiceImpl implements OrganizationManagement
     public Organization update(OrganizationUpdateRequest request) {
 
         Actor currentActor = actorProvider.getCurrent();
-        Account owner = accountQueryService.getByIdentity(currentActor.getActorIdentity());
 
-        Organization existingOrganization = organizationQueryService.getByOwnerId(owner.getId());
+        Organization existingOrganization = organizationQueryService.getByOwnerIdentity(
+                currentActor.getActorIdentity()
+        );
 
         OrganizationUpdateCommand command = OrganizationUpdateCommand.of(request);
 
@@ -97,10 +93,10 @@ public class OrganizationManagementServiceImpl implements OrganizationManagement
     public Organization view() {
 
         Actor currentActor = actorProvider.getCurrent();
-        Account owner = accountQueryService.getByIdentity(currentActor.getActorIdentity());
 
-        Organization organization = organizationQueryService.getByOwnerId(owner.getId());
-
+        Organization organization = organizationQueryService.getByOwnerIdentity(
+                currentActor.getActorIdentity()
+        );
 
         // Log the business operation event
         businessEventLogger.organizationViewed(

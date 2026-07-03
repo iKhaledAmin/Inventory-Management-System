@@ -1,19 +1,17 @@
 package com.khaledamin.ims.organization.domain.model;
 
 import com.khaledamin.ims.core.audit.LifecycleAuditableEntity;
-import com.khaledamin.ims.identity.account.domain.model.Account;
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.command.OrganizationUpdateCommand;
+import com.khaledamin.ims.organization.domain.generator.OrganizationCodeGenerator;
 import com.khaledamin.ims.organization.exception.OrganizationTechnicalException;
 import com.khaledamin.ims.media.image.domain.model.Image;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -53,15 +51,41 @@ public class Organization extends LifecycleAuditableEntity {
     @JoinColumn(name = "image_id")
     private Image image;
 
-    // now and later only one owner
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "owner_id",nullable = false)
-    private Account owner;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(
+                    name = "actorType",
+                    column = @Column(
+                            name = "owner_type",
+                            nullable = false,
+                            updatable = false
+                    )
+            ),
+            @AttributeOverride(
+                    name = "actorCode.value",
+                    column = @Column(
+                            name = "owner_code",
+                            nullable = false,
+                            updatable = false
+                    )
+            )
+    })
+    private ActorIdentity ownerIdentity;
 
-//    // now only one Client actor
-//    // later may be more (Account, Client, etc...)
-//    @Builder.Default
-//    private Set<ActorIdentity> memberIdentities = new HashSet<>();
+
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(
+                    name = "actorType",
+                    column = @Column(name = "member_type")
+            ),
+            @AttributeOverride(
+                    name = "actorCode.value",
+                    column = @Column(name = "member_code")
+            )
+    })
+    private ActorIdentity memberIdentity;
 
 
     // --------------------------------------------------- End Relations --------------------------------------------------- //
@@ -69,22 +93,18 @@ public class Organization extends LifecycleAuditableEntity {
 
     // ----------------------------------------------- Methods ----------------------------------------------- //
 
-    public static Organization create(OrganizationCreateCommand command,Account owner) {
+    public static Organization create(OrganizationCreateCommand command) {
         if (command == null){
             throw OrganizationTechnicalException.nullCreateCommand();
         }
 
-        if (owner == null){
-            throw OrganizationTechnicalException.nullOwnerAccount();
-        }
+        String code = OrganizationCodeGenerator.generate();
 
         return Organization.builder()
-                .code(command.code().toString())
+                .code(code)
                 .name(command.name().toString())
                 .description(command.description().toString())
-                //.memberIdentities(new HashSet<>())
-                .status(OrganizationStatus.ACTIVE)
-                .owner(owner)
+                .status(OrganizationStatus.getDefault())
                 .build();
 
 
@@ -106,6 +126,20 @@ public class Organization extends LifecycleAuditableEntity {
         this.status = OrganizationStatus.SUSPENDED;
     }
 
+    public void attachOwner(ActorIdentity ownerIdentity){
+        if (ownerIdentity == null) {
+            throw OrganizationTechnicalException.nullOwnerIdentity();
+        }
+        this.ownerIdentity = ownerIdentity;
+    }
+
+    public void addMember(ActorIdentity memberIdentity){
+        if (memberIdentity == null) {
+            throw OrganizationTechnicalException.nullMemberIdentity();
+        }
+        this.memberIdentity = memberIdentity;
+    }
+
     public void addImage(Image image) {
 
         if (image == null) {
@@ -123,21 +157,19 @@ public class Organization extends LifecycleAuditableEntity {
 
         this.image = image;
     }
+    public boolean isSame(Organization other){
+        return this.id.equals(other.id);
+    }
 
-//    public void addMember(ActorIdentity memberIdentity){
-//        if (memberIdentity == null){
-//            throw OrganizationTechnicalException.nullMemberIdentity();
-//        }
-//
-//        if (!this.hasMember(memberIdentity)){
-//            memberIdentities.add(memberIdentity);
-//        }
-//
-//    }
-//
-//    public boolean hasMember(ActorIdentity memberIdentity){
-//        return memberIdentities.contains(memberIdentity);
-//    }
+    public boolean ownedBy(ActorIdentity memberIdentity){
+        return ownerIdentity.isSame(memberIdentity);
+    }
+
+
+    public boolean hasMember(ActorIdentity memberIdentity){
+        return this.memberIdentity.isSame(memberIdentity) || ownedBy(memberIdentity);
+    }
+
 
     // ---------------------------------------------- End Methods ----------------------------------------------- //
 

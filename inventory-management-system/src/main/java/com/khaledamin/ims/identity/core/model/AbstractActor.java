@@ -70,7 +70,7 @@ public abstract class AbstractActor implements Actor {
      */
     @Override
     public boolean sameAs(ActorIdentity otherIdentity) {
-        return identity.sameAs(otherIdentity);
+        return identity.isSame(otherIdentity);
     }
 
     /**

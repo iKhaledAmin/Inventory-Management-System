@@ -1,5 +1,6 @@
 package com.khaledamin.ims.organization.infrastructure.persistence;
 
+import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.repository.OrganizationRepository;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class OrganizationRepositoryImp implements OrganizationRepository {
     }
 
     @Override
-    public Optional<Organization> findByOwnerId(Long ownerId) {
-        return organizationJpaRepository.findByOwnerId(ownerId);
+    public Optional<Organization> findByOwnerIdentity(ActorIdentity ownerIdentity) {
+        return organizationJpaRepository.findByOwnerIdentity(ownerIdentity);
     }
 }

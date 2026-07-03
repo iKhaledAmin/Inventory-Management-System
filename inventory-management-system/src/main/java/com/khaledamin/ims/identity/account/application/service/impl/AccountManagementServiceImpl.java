@@ -94,7 +94,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
         organizationManagementService.create(
                 organizationRequest,
-                saved.getActorCode()
+                saved.getActorIdentity()
         );
 
         return saved;

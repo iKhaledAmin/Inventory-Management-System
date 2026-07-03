@@ -471,4 +471,91 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     // --------------------- End Organization events --------------------- //
 
 
+    // --------------------- Organization events --------------------- //
+    @Override
+    public void stockCreated(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_CREATED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock created");
+    }
+
+    @Override
+    public void StockUpdated(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_UPDATED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock updated");
+    }
+
+    @Override
+    public void stockDeleted(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_DELETED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock deleted");
+    }
+
+    @Override
+    public void stockViewed(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_VIEWED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock viewed");
+    }
+
+    @Override
+    public void stockRestocked(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_RESTOCKED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock restocked");
+    }
+
+    @Override
+    public void stockListed(String organizationCode, int page, int size, String sortBy, String direction) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCKS_LISTED)
+                .addKeyValue("organizationCode",organizationCode)
+                .addKeyValue("page", page)
+                .addKeyValue("size", size)
+                .addKeyValue("sortBy", sortBy)
+                .addKeyValue("direction", direction)
+                .log("stocks listed");
+    }
+
+    @Override
+    public void stockBatchesListed(String stockCode, int page, int size, String sortBy, String direction) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCKS_BATCHES_LISTED)
+                .addKeyValue("stockCode",stockCode)
+                .addKeyValue("page", page)
+                .addKeyValue("size", size)
+                .addKeyValue("sortBy", sortBy)
+                .addKeyValue("direction", direction)
+                .log("stock batches listed");
+    }
+
+    // --------------------- End Stock events --------------------- //
 }

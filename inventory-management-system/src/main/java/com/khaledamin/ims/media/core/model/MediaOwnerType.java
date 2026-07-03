@@ -4,6 +4,7 @@ public enum MediaOwnerType {
 
     PROFILE("profile"),
     ORGANIZATION("organization"),
+    STOCK("stock"),
 
 
     ;

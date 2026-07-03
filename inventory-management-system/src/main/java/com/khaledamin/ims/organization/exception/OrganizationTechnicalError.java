@@ -22,16 +22,16 @@ public enum OrganizationTechnicalError implements TechnicalError {
             "Update command is null"
     ),
 
-    OWNER_ACCOUNT_NULL(
-            SystemDomain.ORGANIZATION,
-            "ORGANIZATION_OWNER_ACCOUNT_NULL",
-            "Owner account is null"
-    ),
-
     IMAGE_NULL(
             SystemDomain.ORGANIZATION,
             "ORGANIZATION_IMAGE_NULL",
             "Image is null"
+    ),
+
+    OWNER_IDENTITY_NULL(
+            SystemDomain.ORGANIZATION,
+            "ORGANIZATION_OWNER_IDENTITY_NULL",
+            "Owner identity is null"
     ),
 
     MEMBER_IDENTITY_NULL(
@@ -44,9 +44,9 @@ public enum OrganizationTechnicalError implements TechnicalError {
             SystemDomain.ACCOUNT,
             "ORGANIZATION_IMAGE_UPLOAD_FAILED",
             "Organization image upload failed"
-    )
+    ),
 
-    ;
+  ;
     private final SystemDomain domain;
     private final String code;
     private final String message;

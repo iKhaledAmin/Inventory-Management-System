@@ -1,5 +1,6 @@
 package com.khaledamin.ims.organization.application.service;
 
+import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.value.OrganizationCode;
 
@@ -9,6 +10,6 @@ public interface OrganizationQueryService {
     Optional<Organization> getOptionalByCode(OrganizationCode code);
     Organization getByCode(OrganizationCode code);
 
-    Optional<Organization> getOptionalByOwnerId(Long ownerId);
-    Organization getByOwnerId(Long ownerId);
+    Optional<Organization> getOptionalByOwnerIdentity(ActorIdentity ownerIdentity);
+    Organization getByOwnerIdentity(ActorIdentity ownerIdentity);
 }

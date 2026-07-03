@@ -205,7 +205,7 @@ public class ActorIdentity {
      * @param otherIdentity {@link ActorIdentity} identity to compare against
      * @return {@code true} if both identities match
      */
-    public boolean sameAs(ActorIdentity otherIdentity) {
+    public boolean isSame(ActorIdentity otherIdentity) {
 
         if (otherIdentity == null) {
             return false;

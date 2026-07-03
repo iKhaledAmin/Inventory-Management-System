@@ -1,5 +1,6 @@
 package com.khaledamin.ims.organization.application.service.impl;
 
+import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.repository.OrganizationRepository;
@@ -30,17 +31,18 @@ public class OrganizationQueryServiceImpl implements OrganizationQueryService {
                 );
     }
 
+
     @Override
-    public Optional<Organization> getOptionalByOwnerId(Long ownerId) {
-        return organizationRepository.findByOwnerId(ownerId);
+    public Optional<Organization> getOptionalByOwnerIdentity(ActorIdentity ownerIdentity) {
+        return organizationRepository.findByOwnerIdentity(ownerIdentity);
     }
 
     @Override
-    public Organization getByOwnerId(Long ownerId) {
-        return getOptionalByOwnerId(ownerId)
+    public Organization getByOwnerIdentity(ActorIdentity ownerIdentity) {
+        return getOptionalByOwnerIdentity(ownerIdentity)
                 .orElseThrow(() -> OrganizationBusinessException.notFound()
                         .withDebugDetails("reason", "Organization not found")
-                        .withDebugDetails("ownerId", ownerId)
+                        .withDebugDetails("ownerIdentity", ownerIdentity.toString())
                 );
     }
 }

@@ -1,17 +1,12 @@
 package com.khaledamin.ims.core.logging.core;
 
-import com.khaledamin.ims.core.generator.UniqueIdentifierGenerator;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.khaledamin.ims.core.generator.UlidGenerator;
 
-@AllArgsConstructor
-@Component
+
 public class RequestIdGenerator {
 
-    private final UniqueIdentifierGenerator generator;
-
-    String generate() {
-       return generator.generate();
+    public static String generate() {
+       return UlidGenerator.generate();
     }
 }
 

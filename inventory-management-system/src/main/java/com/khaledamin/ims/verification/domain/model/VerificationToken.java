@@ -89,7 +89,7 @@ public class VerificationToken {
 
     public void verify(ActorIdentity target, TokenType expectedType) {
 
-        if (!this.target.sameAs(target)){
+        if (!this.target.isSame(target)){
             throw VerificationException.invalidToken()
                     .withDebugDetails("reason","Target account does not match")
                     .withDebugDetails("ExpectedTarget",this.target.getActorCode().toString())

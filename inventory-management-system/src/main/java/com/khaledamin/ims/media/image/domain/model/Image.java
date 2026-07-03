@@ -1,6 +1,7 @@
 package com.khaledamin.ims.media.image.domain.model;
 
 import com.khaledamin.ims.core.audit.AuditableEntity;
+import com.khaledamin.ims.media.image.domain.generator.ImageCodeGenerator;
 import com.khaledamin.ims.media.image.exception.ImageTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -68,10 +69,11 @@ public class Image extends AuditableEntity {
 
     // -------------------------------------------- Methods ---------------------------------------- //
 
-    public static Image create(String code, MultipartFile file) {
+    public static Image create(MultipartFile file) {
 
         String imageName = file.getOriginalFilename();
         String checksum = generateChecksum(file);
+        String code = ImageCodeGenerator.generate();
 
         return Image.builder()
                 .code(code)

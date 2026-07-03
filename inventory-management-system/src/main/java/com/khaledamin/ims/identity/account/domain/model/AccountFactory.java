@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountFactory {
 
-    private final ActorCodeGenerator actorCodeGenerator;
 
 
     public Account create(
@@ -29,7 +28,7 @@ public class AccountFactory {
             List<Role> roles
     ){
 
-        ActorCode accountCode = actorCodeGenerator.generate(ActorType.ACCOUNT);
+        ActorCode accountCode = ActorCodeGenerator.generate(ActorType.ACCOUNT);
 
         AccountCreateCommand command = AccountCreateCommand.of(accountCode, username, encodedPassword, email);
 

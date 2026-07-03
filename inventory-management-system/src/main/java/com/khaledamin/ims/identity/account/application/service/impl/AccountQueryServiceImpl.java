@@ -74,7 +74,7 @@ public class AccountQueryServiceImpl implements AccountQueryService {
                         .withClientDetails("actorCode", identity.getActorCode().toString())
                 );
 
-        if (!account.getActorIdentity().sameAs(identity)) {
+        if (!account.getActorIdentity().isSame(identity)) {
             throw AccountBusinessException.notFound()
                     .withClientDetails("reason", "Account not found for given identity")
                     .withClientDetails("actorType", identity.getActorType().name())

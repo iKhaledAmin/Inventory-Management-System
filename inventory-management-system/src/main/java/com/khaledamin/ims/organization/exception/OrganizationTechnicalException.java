@@ -21,12 +21,12 @@ public class OrganizationTechnicalException extends TechnicalException {
         return new OrganizationTechnicalException(OrganizationTechnicalError.UPDATE_COMMAND_NULL);
     }
 
-    public static OrganizationTechnicalException nullOwnerAccount() {
-        return new OrganizationTechnicalException(OrganizationTechnicalError.OWNER_ACCOUNT_NULL);
-    }
-
     public static OrganizationTechnicalException nullImage() {
         return new OrganizationTechnicalException(OrganizationTechnicalError.IMAGE_NULL);
+    }
+
+    public static OrganizationTechnicalException nullOwnerIdentity() {
+        return new OrganizationTechnicalException(OrganizationTechnicalError.OWNER_IDENTITY_NULL);
     }
 
     public static OrganizationTechnicalException nullMemberIdentity() {
@@ -36,4 +36,6 @@ public class OrganizationTechnicalException extends TechnicalException {
     public static OrganizationTechnicalException imageUploadFailed() {
         return new OrganizationTechnicalException(OrganizationTechnicalError.IMAGE_UPLOAD_FAILED);
     }
+
+
 }

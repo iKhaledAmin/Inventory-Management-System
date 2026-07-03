@@ -16,14 +16,13 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class RequestCorrelationFilter extends OncePerRequestFilter {
 
-    private final RequestIdGenerator requestIdGenerator;
     private final RequestEventLogger requestEventLogger;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String requestId = requestIdGenerator.generate();
+        String requestId = RequestIdGenerator.generate();
 
         long startTime = System.currentTimeMillis();
 
