@@ -22,4 +22,6 @@ public interface StockQueryService {
     PageResult<StockBatch> getBatchesByStockCode(StockCode stockCode, StockBatchPageRequest request);
 
     boolean existsBySkyAndOrganizationCode(StockSKU stockSKU, OrganizationCode organizationCode);
+
+    boolean existsByCodeAndOrganizationCode(StockCode stockCode, OrganizationCode organizationCode);
 }

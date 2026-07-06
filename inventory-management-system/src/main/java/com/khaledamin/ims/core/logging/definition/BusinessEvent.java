@@ -70,6 +70,12 @@ public enum BusinessEvent {
     STOCKS_LISTED,
     STOCK_RESTOCKED,
     STOCKS_BATCHES_LISTED,
+    STOCK_EXISTENCE_CHECKED,
+
+
+    // Client events
+    CLIENT_CREATED,
+    CLIENT_SECRET_ROTATED,
 
 
 }

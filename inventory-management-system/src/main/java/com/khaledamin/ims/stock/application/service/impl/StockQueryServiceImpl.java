@@ -64,4 +64,12 @@ public class StockQueryServiceImpl implements StockQueryService {
                 organizationCode.toString()
         );
     }
+
+    @Override
+    public boolean existsByCodeAndOrganizationCode(StockCode stockCode, OrganizationCode organizationCode) {
+        return stockRepository.existsByCodeAndOrganizationCode(
+                stockCode.toString(),
+                organizationCode.toString()
+        );
+    }
 }

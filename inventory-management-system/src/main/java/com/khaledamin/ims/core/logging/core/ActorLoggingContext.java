@@ -1,6 +1,6 @@
 package com.khaledamin.ims.core.logging.core;
 
-import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import org.slf4j.MDC;
 public final class ActorLoggingContext {
 

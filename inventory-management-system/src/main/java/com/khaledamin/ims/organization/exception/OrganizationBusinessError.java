@@ -15,6 +15,13 @@ public enum OrganizationBusinessError implements BusinessError {
             "ORGANIZATION_NOT_FOUND",
             HttpStatus.NOT_FOUND,
             "Organization not found"
+    ),
+
+    CLIENT_ALREADY_EXISTS(
+            SystemDomain.ORGANIZATION,
+            "ORGANIZATION_CLIENT_ALREADY_EXISTS",
+            HttpStatus.CONFLICT,
+            "Client already exists"
     );
     private final SystemDomain domain;
     private final String code;

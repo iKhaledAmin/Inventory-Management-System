@@ -13,4 +13,6 @@ public interface StockJpaRepository extends BaseRepository<StockItem, Long> {
     Page<StockItem> findAllByOrganizationCode(String organizationCode, PageRequest request);
 
     boolean existsBySkuAndOrganizationCode(String itemSku, String organizationCode);
+
+    boolean existsByCodeAndOrganizationCode(String stockCode, String organizationCode);
 }

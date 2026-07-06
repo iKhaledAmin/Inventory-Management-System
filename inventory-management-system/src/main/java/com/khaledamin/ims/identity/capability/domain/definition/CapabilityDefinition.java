@@ -2,6 +2,7 @@ package com.khaledamin.ims.identity.capability.domain.definition;
 
 import com.khaledamin.ims.identity.capability.domain.value.*;
 import com.khaledamin.ims.core.constant.SystemDomain;
+import com.khaledamin.ims.identity.core.model.ActorType;
 
 /**
  * Canonical immutable definition of a system capability.
@@ -175,4 +176,5 @@ public interface CapabilityDefinition {
     SystemDomain getDomain();
 
 
+    ActorType getExpectedActorType();
 }

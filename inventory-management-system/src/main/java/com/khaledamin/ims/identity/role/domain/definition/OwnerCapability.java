@@ -20,6 +20,8 @@ public class OwnerCapability implements RoleCapabilityDefinition {
                 // Organization Capabilities
                 OrganizationCapability.ORGANIZATION_UPDATE.getCode(),
                 OrganizationCapability.ORGANIZATION_READ.getCode(),
+                OrganizationCapability.ORGANIZATION_CREATE_CLIENT.getCode(),
+                OrganizationCapability.ORGANIZATION_ROTATE_CLIENT_SECRET.getCode(),
 
                 // Stock Capabilities
                 StockCapability.STOCK_CREATE.getCode(),

@@ -27,4 +27,9 @@ public class OrganizationRepositoryImp implements OrganizationRepository {
     public Optional<Organization> findByOwnerIdentity(ActorIdentity ownerIdentity) {
         return organizationJpaRepository.findByOwnerIdentity(ownerIdentity);
     }
+
+    @Override
+    public Optional<Organization> findByMemberIdentity(ActorIdentity memberIdentity) {
+        return organizationJpaRepository.findByMemberIdentity(memberIdentity);
+    }
 }

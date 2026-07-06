@@ -12,4 +12,6 @@ public interface OrganizationRepository {
     Optional<Organization> findByCode(String code);
 
     Optional<Organization> findByOwnerIdentity(ActorIdentity ownerIdentity);
+
+    Optional<Organization> findByMemberIdentity(ActorIdentity memberIdentity);
 }

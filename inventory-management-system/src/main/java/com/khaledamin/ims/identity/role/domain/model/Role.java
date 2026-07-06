@@ -149,7 +149,7 @@ public class Role extends AuditableEntity {
     public Set<String> getPermissions(){
         return roleCapabilities
                 .stream()
-                .map(roleCapability -> roleCapability.getCapability().toPermission())
+                .map(roleCapability -> roleCapability.getCapability().toAuthority())
                 .collect(Collectors.toSet());
     }
 

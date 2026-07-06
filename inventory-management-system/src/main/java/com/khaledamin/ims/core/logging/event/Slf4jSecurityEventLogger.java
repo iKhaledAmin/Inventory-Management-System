@@ -1,6 +1,6 @@
 package com.khaledamin.ims.core.logging.event;
 
-import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.khaledamin.ims.core.constant.SystemDomain;
 import com.khaledamin.ims.core.logging.definition.EventType;
 import com.khaledamin.ims.core.exception.security.SecurityException;
@@ -80,7 +80,7 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
                 .addKeyValue("type", EventType.SECURITY)
                 .addKeyValue("domain", SystemDomain.AUTH)
                 .addKeyValue("event", SecurityEvent.LOGIN_FAILED)
-                .addKeyValue("subject", subject)
+                .addKeyValue("clientId", subject)
                 .addKeyValue("errorCode", ex.getError().getCode())
                 .addKeyValue("errorMessage", ex.getMessage())
                 .addKeyValue("errorDetails", ex.getDebugDetails())

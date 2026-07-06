@@ -19,12 +19,12 @@ public record Subject(String value) {
 
         if (value == null || value.isBlank()) {
             throw EmailValidationException.invalidSubject()
-                    .withClientDetails("reason", "Email subject must not be null or empty");
+                    .withClientDetails("reason", "Email clientId must not be null or empty");
         }
 
         if (value.length() > MAX_LENGTH) {
             throw EmailValidationException.invalidSubject()
-                    .withClientDetails("reason", "Email subject exceeds maximum allowed length")
+                    .withClientDetails("reason", "Email clientId exceeds maximum allowed length")
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())
                     .withDebugDetails("receivedValue", value);

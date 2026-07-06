@@ -65,7 +65,7 @@ public class Email extends AuditableEntity {
     private String replyTo;
 
     // -------------------- Content --------------------
-    @Column(name = "subject", nullable = false)
+    @Column(name = "clientId", nullable = false)
     private String subject;
 
     @Lob

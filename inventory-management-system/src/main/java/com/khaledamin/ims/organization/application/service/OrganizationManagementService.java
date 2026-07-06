@@ -1,5 +1,7 @@
 package com.khaledamin.ims.organization.application.service;
 
+import com.khaledamin.ims.identity.client.api.dto.ClientCreateRequest;
+import com.khaledamin.ims.identity.client.domain.model.Client;
 import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
@@ -13,5 +15,9 @@ public interface OrganizationManagementService {
     Organization update(OrganizationUpdateRequest request);
 
     Organization view();
+
+    Client createClient(ClientCreateRequest request);
+
+    String rotateClientSecret(ActorCode clientCode);
 
 }

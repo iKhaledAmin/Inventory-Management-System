@@ -246,4 +246,33 @@ public class StockController {
                 ApiResponseFactory.page(response)
         );
     }
+
+
+
+    @StockExistenceApiDocs
+    @GetMapping("/{code}/exists")
+    @PreAuthorize("hasAuthority('stock_validate_existence')")
+    public ResponseEntity<ApiResponse<StockExistenceResponse>> exists(
+            @Parameter(
+                    description = "Stock unique business identifier",
+                    example = "STK-01KABC123DEF456GHI789JKL",
+                    required = true
+            )
+            @PathVariable
+            String code
+    ) {
+
+        boolean exists = stockManagementService.checkStockExistence(
+                StockCode.of(code)
+        );
+
+        StockExistenceResponse response = StockExistenceResponse.builder()
+                .stockCode(code)
+                .exists(exists)
+                .build();
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(response)
+        );
+    }
 }

@@ -13,5 +13,6 @@ public interface OrganizationJpaRepository extends BaseRepository<Organization, 
 
 
     Optional<Organization> findByOwnerIdentity(ActorIdentity ownerIdentity);
-    boolean existsByOwnerIdentity(ActorIdentity ownerIdentity);
+
+    Optional<Organization> findByMemberIdentity(ActorIdentity memberIdentity);
 }

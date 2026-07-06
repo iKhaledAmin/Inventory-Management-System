@@ -5,6 +5,7 @@ package com.khaledamin.ims.identity.account.domain.capability;
 import com.khaledamin.ims.core.constant.SystemDomain;
 import com.khaledamin.ims.identity.capability.domain.definition.CapabilityDefinition;
 import com.khaledamin.ims.identity.capability.domain.value.*;
+import com.khaledamin.ims.identity.core.model.ActorType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +20,8 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "read",
             "Read Own Account",
-            "Allows authenticated users to view their own account information"
+            "Allows authenticated users to view their own account information",
+            "ACCOUNT"
     ),
 
     ACCOUNT_UPDATE(
@@ -27,7 +29,8 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "update",
             "Update Own Account",
-            "Allows authenticated users to update their own account information"
+            "Allows authenticated users to update their own account information",
+            "ACCOUNT"
     ),
 
 
@@ -68,17 +71,20 @@ public enum AccountCapability implements CapabilityDefinition {
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
+    private final ActorType expectedActorType;
 
     AccountCapability(
             String code, String resource,
             String action, String name,
-            String description
+            String description,
+            String expectedActorType
     ) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
+        this.expectedActorType = ActorType.from(expectedActorType);
     }
 
 

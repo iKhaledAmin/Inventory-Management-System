@@ -6,6 +6,7 @@ import com.khaledamin.ims.identity.capability.domain.repository.CapabilityReposi
 import com.khaledamin.ims.identity.capability.domain.value.CapabilityCode;
 import com.khaledamin.ims.core.constant.SystemDomain;
 import com.khaledamin.ims.identity.capability.exception.CapabilityBusinessException;
+import com.khaledamin.ims.identity.core.model.ActorType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,11 @@ public class CapabilityQueryServiceImpl implements CapabilityQueryService {
     @Override
     public List<Capability> getAll() {
         return capabilityRepository.findAll();
+    }
+
+    @Override
+    public List<Capability> getAllByExpectedActorType(ActorType actorType) {
+        return capabilityRepository.findAllByExpectedActorType(actorType);
     }
 
     @Override

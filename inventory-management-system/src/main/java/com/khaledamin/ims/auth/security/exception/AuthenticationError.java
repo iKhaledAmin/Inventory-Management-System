@@ -16,7 +16,7 @@ public enum AuthenticationError implements SecurityError {
             SystemDomain.SECURITY,
             "SECURITY_CREDENTIALS_INVALID",
             HttpStatus.UNAUTHORIZED,
-            "Invalid username or password"
+            "Invalid credentials"
     ),
 
     AUTHENTICATION_FAILED(

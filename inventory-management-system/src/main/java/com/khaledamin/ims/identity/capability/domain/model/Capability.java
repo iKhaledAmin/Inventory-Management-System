@@ -7,6 +7,7 @@ import com.khaledamin.ims.identity.capability.domain.command.CapabilityUpdateCom
 import com.khaledamin.ims.identity.capability.domain.definition.CapabilityDefinition;
 import com.khaledamin.ims.identity.capability.exception.CapabilityTechnicalException;
 
+import com.khaledamin.ims.identity.core.model.ActorType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -67,9 +68,18 @@ public class Capability extends AuditableEntity {
             name = "domain",
             nullable = false,
             updatable = false,
-            comment = "The domain module to which the capabilities belongs"
+            comment = "The domain module to which the capability belongs"
     )
     private SystemDomain domain;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "expected_actor_type",
+            nullable = false,
+            comment = "The the expected actor who will consume this capability"
+    )
+    private ActorType expectedActorType;
 
 
 
@@ -85,6 +95,7 @@ public class Capability extends AuditableEntity {
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .domain(command.domain())
+                .expectedActorType(command.expectedActorType())
                 .build();
     }
 
@@ -131,7 +142,7 @@ public class Capability extends AuditableEntity {
      *
      * @return canonical permission identifier
      */
-    public String toPermission() {
+    public String toAuthority() {
         return resource + "_" + action;
     }
 

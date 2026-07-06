@@ -45,4 +45,18 @@ public class OrganizationQueryServiceImpl implements OrganizationQueryService {
                         .withDebugDetails("ownerIdentity", ownerIdentity.toString())
                 );
     }
+
+    @Override
+    public Optional<Organization> getOptionalByMemberIdentity(ActorIdentity memberIdentity) {
+        return organizationRepository.findByMemberIdentity(memberIdentity);
+    }
+
+    @Override
+    public Organization getByMemberIdentity(ActorIdentity memberIdentity) {
+        return getOptionalByMemberIdentity(memberIdentity)
+                .orElseThrow(() -> OrganizationBusinessException.notFound()
+                        .withDebugDetails("reason", "Organization not found")
+                        .withDebugDetails("ownerIdentity", memberIdentity.toString())
+                );
+    }
 }

@@ -12,4 +12,7 @@ public interface OrganizationQueryService {
 
     Optional<Organization> getOptionalByOwnerIdentity(ActorIdentity ownerIdentity);
     Organization getByOwnerIdentity(ActorIdentity ownerIdentity);
+
+    Optional<Organization> getOptionalByMemberIdentity(ActorIdentity memberIdentity);
+    Organization getByMemberIdentity(ActorIdentity memberIdentity);
 }

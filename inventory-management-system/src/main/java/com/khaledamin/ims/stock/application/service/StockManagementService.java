@@ -23,4 +23,5 @@ public interface StockManagementService {
     PageResult<StockBatch> listBatches(StockCode stockCode, StockBatchPageRequest request);
 
 
+    boolean checkStockExistence(StockCode stockCode);
 }

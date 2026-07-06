@@ -10,15 +10,15 @@ import java.util.Set;
 public class AccountActor extends AbstractActor {
 
     private final Set<String> roles;
-    private final Set<String> permissions;
+    private final Set<String> authorities;
 
-    public AccountActor(ActorCode actorCode, Set<String> roles , Set<String> permissions) {
+    public AccountActor(ActorCode actorCode, Set<String> roles , Set<String> authorities) {
         super(
                 ActorIdentity.of(ActorType.ACCOUNT, actorCode)
         );
 
         this.roles = roles;
-        this.permissions = permissions;
+        this.authorities = authorities;
     }
 
     public boolean hasRole(String role) {
@@ -34,6 +34,6 @@ public class AccountActor extends AbstractActor {
 
     @Override
     public boolean hasAuthority(String authority) {
-        return permissions.contains(authority);
+        return authorities.contains(authority);
     }
 }

@@ -53,6 +53,8 @@ application:
       expiration-configs:
         ACCOUNT:
           expiration-minutes: 30
+        CLIENT:
+          expiration-minutes: 60
 
   auth:
     activation:

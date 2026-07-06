@@ -56,6 +56,7 @@ public interface BusinessEventLogger {
     void organizationUpdated(String organizationCode);
     void organizationViewed(String organizationCode);
 
+
     // Stock events
     void stockCreated(String stockCode);
     void StockUpdated(String stockCode);
@@ -64,5 +65,9 @@ public interface BusinessEventLogger {
     void stockRestocked(String stockCode );
     void stockListed(String organizationCode, int page, int size, String sortBy, String direction);
     void stockBatchesListed(String stockCode, int page, int size, String sortBy, String direction);
+    void stockExistenceChecked(String stockCode);
 
+    // Client events
+    void clientCreated(String clientCode);
+    void clientSecretRotated(String clientCode);
 }

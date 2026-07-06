@@ -3,10 +3,10 @@ package com.khaledamin.ims.auth.security.Spring_integration;
 
 
 import com.khaledamin.ims.auth.security.exception.JwtAuthenticationException;
-import com.khaledamin.ims.auth.security.jwt.JwtPayload;
-import com.khaledamin.ims.auth.security.jwt.JwtService;
-import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
-import com.khaledamin.ims.auth.security.principal.core.PrincipalResolverRegistry;
+import com.khaledamin.ims.auth.security.core.jwt.JwtPayload;
+import com.khaledamin.ims.auth.security.core.jwt.JwtService;
+import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.core.principal.PrincipalResolverRegistry;
 import com.khaledamin.ims.core.exception.technical.TechnicalException;
 import com.khaledamin.ims.core.exception.security.SecurityException;
 import com.khaledamin.ims.core.logging.event.SecurityEventLogger;
@@ -30,7 +30,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final PrincipalResolverRegistry resolverRegistry;
+    private final PrincipalResolverRegistry principalResolverRegistry;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final SecurityEventLogger securityEventLogger;
 
@@ -59,7 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
             JwtPayload payload = jwtService.extractPayload(token);
 
             // Resolve correct principal (ACCOUNT / CLIENT / SERVICE)
-            AuthenticatedPrincipal principal = resolverRegistry.resolve(payload);
+            AuthenticatedPrincipal principal = principalResolverRegistry.resolve(payload);
 
             // Validate using PAYLOAD (NOT TOKEN)
             jwtService.validateToken(payload, principal);
@@ -108,7 +108,7 @@ public class JwtFilter extends OncePerRequestFilter {
         return new UsernamePasswordAuthenticationToken(
                 principal,
                 null,
-                principal.getAuthorities()
+                principal.getGrantedAuthorities()
         );
     }
 }

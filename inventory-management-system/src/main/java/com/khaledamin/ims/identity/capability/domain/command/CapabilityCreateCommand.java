@@ -2,6 +2,7 @@ package com.khaledamin.ims.identity.capability.domain.command;
 
 import com.khaledamin.ims.identity.capability.domain.value.*;
 import com.khaledamin.ims.core.constant.SystemDomain;
+import com.khaledamin.ims.identity.core.model.ActorType;
 
 public record CapabilityCreateCommand(
         CapabilityCode code,
@@ -9,7 +10,8 @@ public record CapabilityCreateCommand(
         CapabilityAction action,
         CapabilityName name,
         CapabilityDescription description,
-        SystemDomain domain
+        SystemDomain domain,
+        ActorType expectedActorType
 ) {
     public static CapabilityCreateCommand of(
             String code,
@@ -17,7 +19,8 @@ public record CapabilityCreateCommand(
             String action,
             String name,
             String description,
-            SystemDomain domain
+            SystemDomain domain,
+            ActorType expectedActorType
     ){
       return new CapabilityCreateCommand(
               CapabilityCode.of(code),
@@ -25,7 +28,8 @@ public record CapabilityCreateCommand(
               CapabilityAction.of(action),
               CapabilityName.of(name),
               CapabilityDescription.of(description),
-              domain
+              domain,
+              expectedActorType
       )  ;
     }
 }

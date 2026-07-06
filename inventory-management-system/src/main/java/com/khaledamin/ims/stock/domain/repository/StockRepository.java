@@ -14,4 +14,6 @@ public interface StockRepository {
     PageResult<StockItem> findAllByOrganizationCode(String organizationCode, StockPageRequest request);
 
     boolean existsBySkuAndOrganizationCode(String itemSku, String organizationCode);
+
+    boolean existsByCodeAndOrganizationCode(String stockCode,String organizationCode);
 }

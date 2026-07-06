@@ -1,6 +1,6 @@
 package com.khaledamin.ims.identity.core.resolver;
 
-import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorType;
 import com.khaledamin.ims.identity.core.registry.ActorPrincipalResolverRegistry;

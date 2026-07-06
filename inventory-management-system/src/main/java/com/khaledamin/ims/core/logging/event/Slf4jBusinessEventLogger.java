@@ -471,7 +471,7 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     // --------------------- End Organization events --------------------- //
 
 
-    // --------------------- Organization events --------------------- //
+    // --------------------- Stock events --------------------- //
     @Override
     public void stockCreated(String stockCode) {
         log.atInfo()
@@ -557,5 +557,46 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .log("stock batches listed");
     }
 
+    @Override
+    public void stockExistenceChecked(String stockCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.STOCK)
+                .addKeyValue("event", BusinessEvent.STOCK_EXISTENCE_CHECKED)
+                .addKeyValue("stockCode", stockCode)
+                .log("stock existence checked");
+    }
+
     // --------------------- End Stock events --------------------- //
+
+
+    // --------------------- Client events --------------------- //
+
+    @Override
+    public void clientCreated(String clientCode) {
+
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CLIENT)
+                .addKeyValue("event", BusinessEvent.CLIENT_CREATED)
+                .addKeyValue("clientCode", clientCode)
+                .log("client created");
+    }
+
+    @Override
+    public void clientSecretRotated(String clientCode) {
+
+
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CLIENT)
+                .addKeyValue("event", BusinessEvent.CLIENT_SECRET_ROTATED)
+                .addKeyValue("clientCode", clientCode)
+                .log("client secret rotated");
+    }
+
+    // --------------------- End Client events --------------------- //
 }

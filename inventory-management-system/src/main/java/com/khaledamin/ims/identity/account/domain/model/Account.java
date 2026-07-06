@@ -252,7 +252,7 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
     public Set<String> getPermissions() {
         return getCapabilities()
                 .stream()
-                .map(Capability::toPermission)
+                .map(Capability::toAuthority)
                 .collect(Collectors.toSet());
     }
 

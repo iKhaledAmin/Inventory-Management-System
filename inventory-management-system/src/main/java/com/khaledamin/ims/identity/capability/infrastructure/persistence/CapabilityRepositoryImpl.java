@@ -4,6 +4,7 @@ import com.khaledamin.ims.core.constant.SystemDomain;
 import com.khaledamin.ims.identity.capability.domain.model.Capability;
 import com.khaledamin.ims.identity.capability.domain.repository.CapabilityRepository;
 import com.khaledamin.ims.identity.capability.domain.value.CapabilityCode;
+import com.khaledamin.ims.identity.core.model.ActorType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +56,11 @@ public class CapabilityRepositoryImpl implements CapabilityRepository {
     @Override
     public void flush() {
         capabilityJpaRepository.flush();
+    }
+
+    @Override
+    public List<Capability> findAllByExpectedActorType(ActorType actorType) {
+        return capabilityJpaRepository.findAllByExpectedActorType(actorType);
     }
 
 }

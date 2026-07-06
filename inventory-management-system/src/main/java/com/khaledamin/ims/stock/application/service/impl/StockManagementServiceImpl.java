@@ -214,6 +214,24 @@ public class StockManagementServiceImpl implements StockManagementService {
         return batches;
     }
 
+    @Override
+    public boolean checkStockExistence(StockCode stockCode){
+        Actor actor = actorProvider.getCurrent(); // expected to be client actor (machine not human)
+        Organization organization = organizationQueryService.getByMemberIdentity(actor.getActorIdentity());
+
+        OrganizationCode organizationCode = OrganizationCode.of(
+                organization.getCode()
+        );
+
+        boolean exists = stockQueryService.existsByCodeAndOrganizationCode(stockCode,organizationCode);
+
+        businessEventLogger.stockExistenceChecked(
+                stockCode.toString()
+        );
+
+        return exists;
+    }
+
 
     // --------------------------------------------------- Helper methods ---------------------------------------------------
 

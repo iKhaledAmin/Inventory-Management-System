@@ -17,4 +17,7 @@ public class OrganizationBusinessException extends BusinessException {
         return new OrganizationBusinessException(OrganizationBusinessError.NOT_FOUND);
     }
 
+    public static OrganizationBusinessException clientAlreadyExists() {
+        return new OrganizationBusinessException(OrganizationBusinessError.CLIENT_ALREADY_EXISTS);
+    }
 }

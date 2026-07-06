@@ -1,6 +1,6 @@
 package com.khaledamin.ims.auth.account.api.dto;
 
-import com.khaledamin.ims.auth.security.jwt.JwtResponse;
+import com.khaledamin.ims.auth.security.core.jwt.JwtResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -55,14 +55,7 @@ public class AccountLoginResponse {
         private String accountCode;
 
         @Schema(
-                example = "ACTIVE",
-                description = "Current account status"
-        )
-        @JsonProperty("account_status")
-        private String accountStatus;
-
-        @Schema(
-                example = "[\"CUSTOMER\", \"SELLER\"]",
+                example = "[\"OWNER\", \"USER\"]",
                 description = "Assigned account roles"
         )
         @JsonProperty("roles")
@@ -70,9 +63,9 @@ public class AccountLoginResponse {
 
         @Schema(
                 example = "[\"category_read\", \"cart_add_item\", \"cart_read\"]",
-                description = "Granted account permissions"
+                description = "Granted account authorities"
         )
-        @JsonProperty("permissions")
-        private List<String> permissions;
+        @JsonProperty("authorities")
+        private List<String> authorities;
     }
 }

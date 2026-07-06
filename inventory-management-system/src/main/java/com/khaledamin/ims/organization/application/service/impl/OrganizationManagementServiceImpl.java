@@ -2,18 +2,25 @@ package com.khaledamin.ims.organization.application.service.impl;
 
 import com.khaledamin.ims.core.exception.core.BaseException;
 import com.khaledamin.ims.core.logging.event.BusinessEventLogger;
+import com.khaledamin.ims.identity.client.api.dto.ClientCreateRequest;
+import com.khaledamin.ims.identity.client.application.service.ClientManagementService;
+import com.khaledamin.ims.identity.client.application.service.ClientQueryService;
+import com.khaledamin.ims.identity.client.domain.model.Client;
 import com.khaledamin.ims.identity.core.model.Actor;
+import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
 import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
+import com.khaledamin.ims.organization.domain.OrganizationAccessPolicy;
 import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.command.OrganizationUpdateCommand;
 import com.khaledamin.ims.organization.domain.model.Organization;
 import com.khaledamin.ims.organization.domain.model.OrganizationImagePreset;
 import com.khaledamin.ims.organization.domain.repository.OrganizationRepository;
+import com.khaledamin.ims.organization.exception.OrganizationBusinessException;
 import com.khaledamin.ims.organization.exception.OrganizationTechnicalException;
 import com.khaledamin.ims.media.core.model.MediaOwnerType;
 import com.khaledamin.ims.media.image.application.service.ImageService;
@@ -28,8 +35,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class OrganizationManagementServiceImpl implements OrganizationManagementService {
     private final OrganizationQueryService organizationQueryService;
     private final OrganizationRepository organizationRepository;
+    private final OrganizationAccessPolicy organizationAccessPolicy;
     private final ImageService imageService;
     private final ActorProvider actorProvider;
+    private final ClientManagementService clientManagementService;
+    private final ClientQueryService clientQueryService;
     private final BusinessEventLogger businessEventLogger;
 
 
@@ -104,6 +114,48 @@ public class OrganizationManagementServiceImpl implements OrganizationManagement
         );
 
         return organization;
+    }
+
+
+    @Transactional
+    @Override
+    public Client createClient(ClientCreateRequest request) {
+
+        Actor currentActor = actorProvider.getCurrent();
+        Organization organization = organizationQueryService.getByOwnerIdentity(
+                currentActor.getActorIdentity()
+        );
+
+        // this for now ,later will be possible more than one member [Client or Account] will introduce membership concept
+        if (organization.getMemberIdentity() != null){
+            throw OrganizationBusinessException.clientAlreadyExists();
+        }
+
+        Client newClient = clientManagementService.create(request);
+
+        organization.addMember(
+                newClient.getActorIdentity()
+        );
+
+        organizationRepository.save(organization);
+
+        return newClient;
+    }
+
+
+    @Transactional
+    @Override
+    public String rotateClientSecret(ActorCode clientCode) {
+        Client client = clientQueryService.getByClientCode(clientCode);
+
+        Actor currentActor = actorProvider.getCurrent();
+        Organization organization = organizationQueryService.getByOwnerIdentity(
+                currentActor.getActorIdentity()
+        );
+
+        organizationAccessPolicy.canRotateClientSecret(client,organization);
+
+        return clientManagementService.rotateSecret(clientCode);
     }
 
 

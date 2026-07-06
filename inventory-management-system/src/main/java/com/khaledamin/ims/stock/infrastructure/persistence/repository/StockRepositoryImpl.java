@@ -42,4 +42,9 @@ public class StockRepositoryImpl implements StockRepository {
         return jpaRepository.existsBySkuAndOrganizationCode(itemSku,organizationCode);
     }
 
+    @Override
+    public boolean existsByCodeAndOrganizationCode(String stockCode, String organizationCode) {
+        return jpaRepository.existsByCodeAndOrganizationCode(stockCode,organizationCode);
+    }
+
 }

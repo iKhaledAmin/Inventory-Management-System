@@ -15,10 +15,9 @@ public final class AccountLoginExamples {
             "account_info": {
               "username": "khaled-amin",
               "account_code": "ACC-01K123ABC456DEF789GHIJKL",
-              "account_status": "ACTIVE",
               "roles": [
                 "USER",
-                "CUSTOMER"
+                "OWNER"
               ],
               "permissions": [
                 "account_read",
@@ -29,7 +28,8 @@ public final class AccountLoginExamples {
             "token_info": {
               "access_token": "eyJhbGciOiJIUzI1NiJ9...",
               "token_type": "Bearer",
-              "expires_in": 86400
+              "expires_at": "2026-07-06T10:12:47Z",
+              "expires_in": 1798,
             }
           }
         }

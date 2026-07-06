@@ -1,6 +1,6 @@
 package com.khaledamin.ims.identity.core.provider;
 
-import com.khaledamin.ims.auth.security.principal.core.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.khaledamin.ims.core.exception.technical.TechnicalException;
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorSource;

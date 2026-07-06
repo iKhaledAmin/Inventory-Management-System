@@ -18,7 +18,7 @@ public enum EmailValidationError implements ValidationError {
     SUBJECT_INVALID(
             SystemDomain.EMAIL,
             "EMAIL_SUBJECT_INVALID",
-            "Invalid email subject"
+            "Invalid email clientId"
     ),
 
     BODY_INVALID(

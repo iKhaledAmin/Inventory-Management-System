@@ -41,7 +41,8 @@ public class CapabilityManagementServiceImpl implements CapabilityManagementServ
                 definition.getAction().toString(),
                 definition.getName().toString(),
                 definition.getDescription().toString(),
-                definition.getDomain()
+                definition.getDomain(),
+                definition.getExpectedActorType()
         );
 
         Capability newCapability = Capability.create(command);
