@@ -22,6 +22,20 @@ public class StockBusinessException extends BusinessException {
     public static StockBusinessException SkuAlreadyExists() {
         return new StockBusinessException(StockBusinessError.SKU_ALREADY_EXISTS);
     }
+
+    public static StockBusinessException insufficientStock() {
+        return new StockBusinessException(StockBusinessError.INSUFFICIENT_STOCK);
+    }
+
+    public static StockBusinessException invalidReleaseQuantity() {
+        return new StockBusinessException(StockBusinessError.INVALID_RELEASE_QUANTITY);
+    }
+
+    public static StockBusinessException invalidConsumeQuantity() {
+        return new StockBusinessException(StockBusinessError.INVALID_CONSUME_QUANTITY);
+    }
+
+
     // -------------------------------------------- End Static Methods -------------------------------------------- //
 }
 

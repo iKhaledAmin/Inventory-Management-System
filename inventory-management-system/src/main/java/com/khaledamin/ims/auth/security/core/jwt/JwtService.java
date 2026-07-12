@@ -1,10 +1,7 @@
 package com.khaledamin.ims.auth.security.core.jwt;
 
-
-
-
-import com.khaledamin.ims.auth.security.exception.AuthenticationException;
 import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.exception.validation.ValidationException;
 import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.model.ActorType;
@@ -103,7 +100,7 @@ public  class JwtService {
      *
      * @param token {@link String} raw JWT token
      * @return payload {@link JwtPayload} extracted JWT payload
-     * @throws SecurityException if the token is invalid, malformed,
+     * @throws CustomSecurityException if the token is invalid, malformed,
      * expired, unsupported, or missing required claims
      */
     public JwtPayload extractPayload(String token) {
@@ -122,7 +119,7 @@ public  class JwtService {
 
         if (subject == null || subject.isBlank()) {
 
-            throw AuthenticationException.invalidToken()
+            throw CustomSecurityException.invalidToken()
                     .withDebugDetails("reason", "Token clientId is missing");
         }
 
@@ -136,7 +133,7 @@ public  class JwtService {
 
         if (expiration == null) {
 
-            throw AuthenticationException.invalidToken()
+            throw CustomSecurityException.invalidToken()
                     .withDebugDetails("reason", "Token expiration claim is missing");
         }
 
@@ -173,7 +170,7 @@ public  class JwtService {
      *
      * @param payload {@link JwtPayload} extracted JWT payload
      * @param principal {@link AuthenticatedPrincipal}resolved authenticated principal
-     * @throws SecurityException if validation fails
+     * @throws CustomSecurityException if validation fails
      */
     public void validateToken(JwtPayload payload, AuthenticatedPrincipal principal) {
 
@@ -181,7 +178,7 @@ public  class JwtService {
 
         if (!principal.supportsToken(payload.getSubject())) {
 
-            throw AuthenticationException.invalidToken()
+            throw CustomSecurityException.invalidToken()
                     .withDebugDetails("reason", "Token clientId mismatch")
                     .withDebugDetails("tokenSubject", payload.getSubject())
                     .withDebugDetails("principalSubject", principal.getSubject());
@@ -189,7 +186,7 @@ public  class JwtService {
 
         if (payload.getActorType() != principal.getActorType()) {
 
-            throw AuthenticationException.invalidToken()
+            throw CustomSecurityException.invalidToken()
                     .withDebugDetails("reason", "Actor type mismatch")
                     .withDebugDetails("tokenActorType", payload.getActorType())
                     .withDebugDetails("principalActorType", principal.getActorType());
@@ -197,7 +194,7 @@ public  class JwtService {
 
         if (!payload.getActorCode().equals(principal.getActorCode())) {
 
-            throw AuthenticationException.invalidToken()
+            throw CustomSecurityException.invalidToken()
                     .withDebugDetails("reason", "Actor code mismatch")
                     .withDebugDetails("tokenActorCode", payload.getActorCode())
                     .withDebugDetails("principalActorCode", principal.getActorCode());
@@ -207,7 +204,7 @@ public  class JwtService {
 
         if (isTokenExpired(payload)) {
 
-            throw AuthenticationException.expiredToken()
+            throw CustomSecurityException.expiredToken()
                     .withDebugDetails("reason", "Token expired")
                     .withDebugDetails("expiration", payload.getExpiration());
         }
@@ -216,7 +213,7 @@ public  class JwtService {
 
         if (principal.isLocked()) {
             String principalType = principal.getActorType().name();
-            throw AuthenticationException.principalLocked(principalType.toLowerCase(Locale.ROOT))
+            throw CustomSecurityException.principalLocked(principalType.toLowerCase(Locale.ROOT))
                     .withDebugDetails("reason", "Principal is locked")
                     .withDebugDetails("actorType",principalType)
                     .withDebugDetails("clientId", principal.getSubject());
@@ -224,7 +221,7 @@ public  class JwtService {
 
         if (!principal.isActive()) {
             String principalType = principal.getActorType().name();
-            throw AuthenticationException.principalInactive(principalType.toLowerCase(Locale.ROOT))
+            throw CustomSecurityException.principalInactive(principalType.toLowerCase(Locale.ROOT))
                     .withDebugDetails("reason", "Principal is inactive")
                     .withDebugDetails("actorType",principalType)
                     .withDebugDetails("clientId", principal.getSubject());
@@ -263,14 +260,14 @@ public  class JwtService {
             String actorTypeRaw = claims.get(JwtClaims.ACTOR_TYPE, String.class);
 
             if (actorTypeRaw == null || actorTypeRaw.isBlank()) {
-                throw AuthenticationException.invalidToken()
+                throw CustomSecurityException.invalidToken()
                         .withDebugDetails("reason", "Actor type claim is missing");
             }
 
             return ActorType.from(actorTypeRaw);
 
         } catch (RequiredTypeException | ValidationException ex) {
-            throw AuthenticationException.invalidToken(ex)
+            throw CustomSecurityException.invalidToken(ex)
                     .withDebugDetails("reason", "Invalid actor type");
         }
     }
@@ -283,7 +280,7 @@ public  class JwtService {
 
             if (actorCodeRaw == null || actorCodeRaw.isBlank()) {
 
-                throw AuthenticationException.invalidToken()
+                throw CustomSecurityException.invalidToken()
                         .withDebugDetails("reason", "Actor code claim is missing");
             }
 
@@ -291,7 +288,7 @@ public  class JwtService {
 
         } catch (RequiredTypeException | ValidationException ex) {
 
-            throw AuthenticationException.invalidToken(ex)
+            throw CustomSecurityException.invalidToken(ex)
                     .withDebugDetails("reason", "Invalid actor code");
         }
     }
@@ -351,29 +348,29 @@ public  class JwtService {
 
         } catch (ExpiredJwtException ex) {
 
-            throw AuthenticationException.expiredToken(ex)
-                    .withDebugDetails("reason", "Token expired")
+            throw CustomSecurityException.expiredToken(ex)
+                    .withDebugDetails("problem", "Token expired")
                     .withDebugDetails("expiration", ex.getClaims().getExpiration());
 
         } catch (MalformedJwtException ex) {
 
-            throw AuthenticationException.malformedToken(ex)
-                    .withDebugDetails("reason", "Malformed JWT token");
+            throw CustomSecurityException.invalidToken(ex)
+                    .withDebugDetails("problem", "Malformed JWT token");
 
         } catch (SignatureException ex) {
 
-            throw AuthenticationException.invalidTokenSignature(ex)
-                    .withDebugDetails("reason", "Invalid JWT signature");
+            throw CustomSecurityException.invalidToken(ex)
+                    .withDebugDetails("problem", "Invalid JWT signature");
 
         } catch (UnsupportedJwtException ex) {
 
-            throw AuthenticationException.invalidToken(ex)
-                    .withDebugDetails("reason", "Unsupported JWT token");
+            throw CustomSecurityException.invalidToken(ex)
+                    .withDebugDetails("problem", "Unsupported JWT token");
 
         } catch (IllegalArgumentException ex) {
 
-            throw AuthenticationException.invalidToken(ex)
-                    .withDebugDetails("reason", "JWT token is missing or empty");
+            throw CustomSecurityException.invalidToken(ex)
+                    .withDebugDetails("problem", "JWT token is missing or empty");
         }
     }
 

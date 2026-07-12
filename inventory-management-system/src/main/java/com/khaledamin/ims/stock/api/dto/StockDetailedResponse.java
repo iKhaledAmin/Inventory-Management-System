@@ -48,12 +48,16 @@ public class StockDetailedResponse {
     private Long totalReceivedQuantity;
 
     @Schema(example = "500")
-    @JsonProperty("total_consumed_quantity")
-    private Long totalConsumedQuantity;
-
-    @Schema(example = "500")
     @JsonProperty("total_available_quantity")
     private Long totalAvailableQuantity;
+
+    @Schema(example = "100")
+    @JsonProperty("total_reserved_quantity")
+    private Long totalReservedQuantity;
+
+    @Schema(example = "400")
+    @JsonProperty("total_consumed_quantity")
+    private Long totalConsumedQuantity;
 
     @Schema(example = "3937.5000")
     @JsonProperty("total_stock_value")

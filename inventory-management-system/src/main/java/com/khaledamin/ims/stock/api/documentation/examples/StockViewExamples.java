@@ -19,8 +19,9 @@ public final class StockViewExamples {
             "status": "ACTIVE",
             "totalBatchCount": 2,
             "totalReceivedQuantity": 150,
+            "totalAvailableQuantity": 130,
+            "totalReservedQuantity": 10,
             "totalConsumedQuantity": 10,
-            "totalAvailableQuantity": 140,
             "totalStockValue": 140000.00,
             "nearestExpirationDate": "2027-06-01",
             "image": null
@@ -42,8 +43,9 @@ public final class StockViewExamples {
             "status": "ACTIVE",
             "totalBatchCount": 2,
             "totalReceivedQuantity": 150,
+            "totalAvailableQuantity": 130,
+            "totalReservedQuantity": 10,
             "totalConsumedQuantity": 10,
-            "totalAvailableQuantity": 140,
             "totalStockValue": 140000.00,
             "nearestExpirationDate": "2027-06-01",
             "image": {

@@ -78,4 +78,11 @@ public enum BusinessEvent {
     CLIENT_SECRET_ROTATED,
 
 
+    // Reservation events
+    RESERVATION_CREATED,
+    RESERVATION_RELEASED,
+    RESERVATION_CONFIRMED,
+    RESERVATION_EXPIRED,
+
+
 }

@@ -30,6 +30,27 @@ public enum StockBusinessError implements BusinessError {
             "STOCK_SKU_ALREADY_EXISTS",
             HttpStatus.CONFLICT,
             "Stock SKU already exists"
+    ),
+
+    INSUFFICIENT_STOCK(
+            SystemDomain.STOCK,
+            "STOCK_INSUFFICIENT_STOCK",
+            HttpStatus.CONFLICT,
+            "Insufficient stock"
+    ),
+
+    INVALID_RELEASE_QUANTITY(
+            SystemDomain.STOCK,
+            "STOCK_INVALID_RELEASE_QUANTITY",
+            HttpStatus.CONFLICT,
+            "Invalid release quantity"
+    ),
+
+    INVALID_CONSUME_QUANTITY(
+            SystemDomain.STOCK,
+            "STOCK_INVALID_CONSUME_QUANTITY",
+            HttpStatus.CONFLICT,
+            "Invalid consume quantity"
     );
     private final SystemDomain domain;
     private final String code;

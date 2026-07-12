@@ -14,7 +14,7 @@ public final class StockBatchSpecifications {
 
         return (root, query, cb) ->
                 cb.equal(
-                        root.get("stockItem").get("code"),
+                        root.get("stock").get("code"),
                         stockCode
                 );
     }

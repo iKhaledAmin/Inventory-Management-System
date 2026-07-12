@@ -3,6 +3,7 @@ package com.khaledamin.ims.stock.domain.model;
 import com.khaledamin.ims.core.audit.AuditableEntity;
 import com.khaledamin.ims.stock.domain.command.RestockCommand;
 import com.khaledamin.ims.stock.domain.generator.StockCodeGenerator;
+import com.khaledamin.ims.stock.exception.StockBusinessException;
 import com.khaledamin.ims.stock.exception.StockTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,12 @@ public class StockBatch extends AuditableEntity {
     @Column(name = "available_quantity",nullable = false)
     private Long availableQuantity;
 
+    @Column(name = "reserved_quantity", nullable = false)
+    private Long reservedQuantity;
+
+    @Column(name = "consumed_quantity",nullable = false)
+    private Long consumedQuantity;
+
     @Column(name = "received_date",nullable = false,updatable = false)
     private LocalDate receivedDate;
 
@@ -47,8 +54,8 @@ public class StockBatch extends AuditableEntity {
     // ------------------------------------------------------ Relations ----------------------------------------------------- //
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
-    private StockItem stockItem;
+    @JoinColumn(name = "stock_id", nullable = false)
+    private Stock stock;
 
     // ---------------------------------------------------- End Relations ---------------------------------------------------- //
 
@@ -56,12 +63,12 @@ public class StockBatch extends AuditableEntity {
     // ---------------------------------------------------- Methods -------------------------------------------------------- //
 
 
-    public static StockBatch create(RestockCommand command, StockItem stockItem) {
+    public static StockBatch create(RestockCommand command, Stock stock) {
         if (command == null) {
             throw StockTechnicalException.nullRestockCommand();
         }
 
-        if (stockItem == null) {
+        if (stock == null) {
             throw StockTechnicalException.nullStockItem();
         }
 
@@ -71,17 +78,15 @@ public class StockBatch extends AuditableEntity {
                 .code(code)
                 .receivedQuantity(command.receivedQuantity().value())
                 .availableQuantity(command.receivedQuantity().value())
+                .reservedQuantity(0L)
+                .consumedQuantity(0L)
                 .receivedDate(LocalDate.now())
                 .expirationDate(command.expirationDate().value())
                 .unitCost(command.unitCost().value())
-                .stockItem(stockItem)
+                .stock(stock)
                 .build();
     }
 
-
-    public long getConsumedQuantity(){
-        return receivedQuantity - availableQuantity;
-    }
 
     public boolean isEmpty() {
         return availableQuantity == 0;
@@ -119,9 +124,41 @@ public class StockBatch extends AuditableEntity {
             return BigDecimal.ZERO;
         }
 
+        long quantity = receivedQuantity - consumedQuantity;
+
         return unitCost.multiply(
-                BigDecimal.valueOf(availableQuantity)
+                BigDecimal.valueOf(quantity)
         );
+    }
+
+    public void reserve(long quantity) {
+
+        if (availableQuantity < quantity) {
+            throw StockBusinessException.insufficientStock();
+        }
+
+        availableQuantity -= quantity;
+        reservedQuantity += quantity;
+    }
+
+    public void release(long quantity) {
+
+        if (reservedQuantity < quantity) {
+            throw StockBusinessException.invalidReleaseQuantity();
+        }
+
+        reservedQuantity -= quantity;
+        availableQuantity += quantity;
+    }
+
+    public void consume(long quantity) {
+
+        if (reservedQuantity < quantity) {
+            throw StockBusinessException.invalidConsumeQuantity();
+        }
+
+        reservedQuantity -= quantity;
+        consumedQuantity += quantity;
     }
 
     // ---------------------------------------------------- End Methods ------------------------------------------------------ //

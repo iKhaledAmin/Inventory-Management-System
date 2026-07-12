@@ -2,14 +2,14 @@ package com.khaledamin.ims.stock.domain.policy;
 
 import com.khaledamin.ims.identity.core.model.Actor;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
-import com.khaledamin.ims.stock.domain.model.StockItem;
+import com.khaledamin.ims.stock.domain.model.Stock;
 import com.khaledamin.ims.stock.exception.StockPolicyException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StockAccessPolicy {
 
-    public void canView(Actor actor, StockItem stock) {
+    public void canView(Actor actor, Stock stock) {
         ActorIdentity actorIdentity = actor.getActorIdentity();
 
         if (!stock.getOrganization().ownedBy(actorIdentity)) {
@@ -21,7 +21,7 @@ public class StockAccessPolicy {
         }
     }
 
-    public void canUpdate(Actor actor, StockItem stock) {
+    public void canUpdate(Actor actor, Stock stock) {
         ActorIdentity actorIdentity = actor.getActorIdentity();
 
         if (!stock.getOrganization().ownedBy(actorIdentity)) {
@@ -33,7 +33,7 @@ public class StockAccessPolicy {
         }
     }
 
-    public void canDelete(Actor actor, StockItem stock) {
+    public void canDelete(Actor actor, Stock stock) {
 
         ActorIdentity actorIdentity = actor.getActorIdentity();
 
@@ -46,7 +46,7 @@ public class StockAccessPolicy {
         }
     }
 
-    public void canRestock(Actor actor, StockItem stock) {
+    public void canRestock(Actor actor, Stock stock) {
         ActorIdentity actorIdentity = actor.getActorIdentity();
 
         if (!stock.getOrganization().ownedBy(actorIdentity)) {
@@ -58,7 +58,7 @@ public class StockAccessPolicy {
         }
     }
 
-    public void canListBatches(Actor actor, StockItem stock) {
+    public void canListBatches(Actor actor, Stock stock) {
         ActorIdentity actorIdentity = actor.getActorIdentity();
 
         if (!stock.getOrganization().ownedBy(actorIdentity)) {

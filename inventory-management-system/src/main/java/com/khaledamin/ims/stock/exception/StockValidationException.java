@@ -17,11 +17,11 @@ public class StockValidationException extends ValidationException {
         return new StockValidationException(StockValidationError.CODE_INVALID);
     }
 
-    public static StockValidationException invalidItemName() {
+    public static StockValidationException invalidName() {
         return new StockValidationException(StockValidationError.NAME_INVALID);
     }
 
-    public static StockValidationException invalidItemDescription() {
+    public static StockValidationException invalidDescription() {
         return new StockValidationException(StockValidationError.DESCRIPTION_INVALID);
     }
 

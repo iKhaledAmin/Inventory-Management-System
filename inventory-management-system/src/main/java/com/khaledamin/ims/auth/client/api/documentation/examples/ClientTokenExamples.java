@@ -25,7 +25,7 @@ public final class ClientTokenExamples {
               "access_token": "eyJhbGciOiJIUzI1NiJ9...",
               "token_type": "Bearer",
               "expires_at": "2026-07-06T10:12:47Z",
-              "expires_in": 1798,
+              "expires_in": 1798
             }
           }
         }
@@ -103,9 +103,11 @@ public final class ClientTokenExamples {
           "error": {
             "status": 401,
             "code": "SECURITY_CREDENTIALS_INVALID",
-            "message": "Invalid client id or client secret",
+            "message": "Invalid credentials",
             "path": "/auth/clients/token",
-            "details": {}
+            "details": {
+                  "reason": "Invalid client id or client secret"
+                },
           }
         }
         """;
@@ -119,7 +121,7 @@ public final class ClientTokenExamples {
           "error": {
             "status": 401,
             "code": "SECURITY_PRINCIPAL_INACTIVE",
-            "message": "Client is inactive",
+            "message": "Client is not active",
             "path": "/auth/clients/token",
             "details": {}
           }

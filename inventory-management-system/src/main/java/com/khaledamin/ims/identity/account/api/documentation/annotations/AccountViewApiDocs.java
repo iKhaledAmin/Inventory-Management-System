@@ -1,8 +1,8 @@
 package com.khaledamin.ims.identity.account.api.documentation.annotations;
 
-import com.khaledamin.ims.core.api.documentation.annotations.ForbiddenApiDocs;
-import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.khaledamin.ims.core.api.documentation.annotations.UnauthorizedApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.identity.account.api.documentation.examples.AccountViewExamples;
 import com.khaledamin.ims.identity.account.api.documentation.schema.AccountApiResponseSchema;
@@ -58,25 +58,9 @@ import java.lang.annotation.*;
         )
 )
 
-@ApiResponse(
-        responseCode = "404",
-        description = "Account not found",
-        content = @Content(
-                schema = @Schema(
-                        implementation = ApiErrorResponse.class
-                ),
-                examples = {
-                        @ExampleObject(
-                                name = "Account Not Found",
-                                summary = "Authenticated account no longer exists",
-                                value = AccountViewExamples.ACCOUNT_NOT_FOUND
-                        )
-                }
-        )
-)
 
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
-@ForbiddenApiDocs
 @InternalServerErrorApiDocs
 public @interface AccountViewApiDocs {
 }

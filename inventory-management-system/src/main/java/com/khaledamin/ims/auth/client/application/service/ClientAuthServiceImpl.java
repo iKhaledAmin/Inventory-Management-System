@@ -6,7 +6,7 @@ import com.khaledamin.ims.auth.client.api.dto.ClientTokenRequest;
 import com.khaledamin.ims.auth.client.api.dto.ClientTokenResponse;
 import com.khaledamin.ims.auth.client.api.mapper.ClientAuthMapper;
 import com.khaledamin.ims.auth.security.core.jwt.JwtService;
-import com.khaledamin.ims.core.exception.security.SecurityException;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.logging.core.ActorLoggingContext;
 import com.khaledamin.ims.core.logging.event.SecurityEventLogger;
 import jakarta.transaction.Transactional;
@@ -49,7 +49,7 @@ public class ClientAuthServiceImpl implements ClientAuthService {
                     principal
             );
 
-        } catch (SecurityException ex) {
+        } catch (CustomSecurityException ex) {
 
             securityEventLogger.loginFailed(
                     request.getClientId(),

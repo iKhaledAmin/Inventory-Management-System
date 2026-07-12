@@ -33,12 +33,6 @@ public enum SecurityTechnicalError implements TechnicalError {
 
     // ================================= JWT CLAIMS CONTRIBUTOR =================================
 
-    JWT_CLAIMS_CONTRIBUTOR_DUPLICATE(
-            SystemDomain.SECURITY,
-            "SECURITY_JWT_CLAIMS_CONTRIBUTOR_DUPLICATE",
-            "Duplicate JwtClaimsContributor registered"
-    ),
-
     JWT_CLAIMS_CONTRIBUTOR_NULL(
             SystemDomain.SECURITY,
             "SECURITY_JWT_CLAIMS_CONTRIBUTOR_NULL",

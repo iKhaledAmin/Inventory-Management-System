@@ -13,6 +13,8 @@ public enum StockBatchSortField {
 
     RECEIVED_QUANTITY("receivedQuantity"),
     AVAILABLE_QUANTITY("availableQuantity"),
+    RESERVED_QUANTITY("reservedQuantity"),
+    CONSUMED_QUANTITY("consumedQuantity"),
 
     UNIT_COST("unitCost")
     ;

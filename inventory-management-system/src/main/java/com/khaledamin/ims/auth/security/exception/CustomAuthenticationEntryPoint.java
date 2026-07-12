@@ -3,8 +3,6 @@ package com.khaledamin.ims.auth.security.exception;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.khaledamin.ims.core.api.response.ErrorResponse;
 import com.khaledamin.ims.core.api.response.ApiResponseFactory;
-import com.khaledamin.ims.core.exception.security.SecurityError;
-import com.khaledamin.ims.core.exception.security.SecurityException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +23,14 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex
     ) throws IOException {
 
-        SecurityException securityException = extractSecurityException(ex);
+        CustomSecurityException exception = extractSecurityException(ex);
 
-        SecurityError error = securityException.getError();
+        SecurityError error = exception.getError();
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(error.getStatus().value())
                 .code(error.getCode())
-                .message(securityException.getMessage())
+                .message(exception.getMessage())
                 .details(Map.of())
                 .path(request.getRequestURI())
                 .build();
@@ -51,16 +49,15 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         );
     }
 
-    private SecurityException extractSecurityException(AuthenticationException ex) {
+    private CustomSecurityException extractSecurityException(AuthenticationException ex) {
 
         Throwable cause = ex.getCause();
 
-        if (cause instanceof SecurityException securityException) {
-            return securityException;
+        if (cause instanceof CustomSecurityException customSecurityException) {
+            return customSecurityException;
         }
 
-        return com.khaledamin.ims.auth.security.exception.AuthenticationException
-                .authenticationFailed();
+        return CustomSecurityException.authenticationFailed();
     }
 
     private String buildAuthenticateHeader(SecurityError error) {

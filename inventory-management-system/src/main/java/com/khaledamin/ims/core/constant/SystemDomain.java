@@ -14,6 +14,7 @@ public enum SystemDomain {
     SECURITY,
     MEDIA,
     STOCK,
+    RESERVATION,
 
 
 }

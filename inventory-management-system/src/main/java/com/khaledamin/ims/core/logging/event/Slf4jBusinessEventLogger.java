@@ -599,4 +599,58 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     }
 
     // --------------------- End Client events --------------------- //
+
+
+    // --------------------- Reservation events --------------------- //
+    @Override
+    public void reservationCreated(String reservationCode, String organizationCode) {
+
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.RESERVATION)
+                .addKeyValue("event", BusinessEvent.RESERVATION_CREATED)
+                .addKeyValue("reservationCode", reservationCode)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("reservation created");
+    }
+
+    @Override
+    public void reservationReleased(String reservationCode, String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.RESERVATION)
+                .addKeyValue("event", BusinessEvent.RESERVATION_RELEASED)
+                .addKeyValue("reservationCode", reservationCode)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("reservation released");
+    }
+
+    @Override
+    public void reservationConfirmed(String reservationCode, String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.RESERVATION)
+                .addKeyValue("event", BusinessEvent.RESERVATION_CONFIRMED)
+                .addKeyValue("reservationCode", reservationCode)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("reservation confirmed");
+    }
+
+    @Override
+    public void reservationExpired(String reservationCode, String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.RESERVATION)
+                .addKeyValue("event", BusinessEvent.RESERVATION_EXPIRED)
+                .addKeyValue("reservationCode", reservationCode)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("reservation expired");
+    }
+
+    // ------------------- End Reservation events -------------------- //
+
 }

@@ -32,7 +32,7 @@ public record StockDescription(String value) {
         }
 
         if (value.length() > MAX_LENGTH) {
-            throw StockValidationException.invalidItemDescription()
+            throw StockValidationException.invalidDescription()
                     .withClientDetails("reason", MAX_LENGTH_ERROR_MESSAGE)
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())

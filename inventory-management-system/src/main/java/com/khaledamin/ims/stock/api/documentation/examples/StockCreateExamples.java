@@ -19,8 +19,9 @@ public final class StockCreateExamples {
             "status": "ACTIVE",
             "totalBatchCount": 0,
             "totalReceivedQuantity": 0,
-            "totalConsumedQuantity": 0,
             "totalAvailableQuantity": 0,
+            "totalReservedQuantity": 0,
+            "totalConsumedQuantity": 0,
             "totalStockValue": 0,
             "nearestExpirationDate": null,
             "image": {}

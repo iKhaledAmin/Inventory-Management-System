@@ -1,8 +1,8 @@
 package com.khaledamin.ims.stock.api.documentation.annotations;
 
 import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.khaledamin.ims.core.api.documentation.annotations.UnauthorizedApiDocs;
-import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.stock.api.documentation.examples.StockExistenceExamples;
 import com.khaledamin.ims.stock.api.documentation.schema.StockExistenceApiSchema;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +58,7 @@ import java.lang.annotation.*;
         )
 )
 
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs
 public @interface StockExistenceApiDocs {

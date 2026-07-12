@@ -11,7 +11,6 @@ import org.mapstruct.Mapping;
 public interface StockBatchMapper extends BaseMapper<StockBatchResponse, StockBatch> {
 
     @Override
-    @Mapping(target = "consumedQuantity", expression = "java(batch.getConsumedQuantity())")
     @Mapping(target = "stockValue", expression = "java(batch.getStockValue())")
     @Mapping(target = "expired", expression = "java(batch.isExpired())")
     StockBatchResponse toResponse(StockBatch batch);

@@ -2,7 +2,7 @@ package com.khaledamin.ims.auth.client.infrastructure.authentication;
 
 import com.khaledamin.ims.auth.client.infrastructure.principal.ClientPrincipal;
 import com.khaledamin.ims.auth.security.core.authentication.CredentialAuthenticationService;
-import com.khaledamin.ims.auth.security.exception.AuthenticationException;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.identity.client.application.service.ClientQueryService;
 import com.khaledamin.ims.identity.client.domain.model.Client;
 import lombok.RequiredArgsConstructor;
@@ -17,29 +17,30 @@ public class ClientAuthenticationService implements CredentialAuthenticationServ
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public ClientPrincipal authenticate(String clientSubject, String clientSecret) {
+    public ClientPrincipal authenticate(String clientId, String clientSecret) {
 
         // 1. Load client
-        Client client = clientQueryService.getOptionalByClientId(clientSubject)
-                .orElseThrow(() -> AuthenticationException.invalidCredentials()
+        Client client = clientQueryService.getOptionalByClientId(clientId)
+                .orElseThrow(() -> CustomSecurityException.invalidCredentials()
                         .withDebugDetails("problem", "Client not found")
+                        .withDebugDetails("clientId",clientId)
                 );
 
         // 2. Validate secret
         if (!passwordEncoder.matches(clientSecret, client.getClientSecretHash())) {
-            throw AuthenticationException.invalidCredentials()
+            throw CustomSecurityException.invalidCredentials()
                     .withClientDetails("reason", "Invalid client id or client secret")
                     .withDebugDetails("problem", "Invalid client secret");
         }
 
         // 3. Validate state
         if (client.getStatus().isLocked()) {
-            throw AuthenticationException.principalLocked("Client")
+            throw CustomSecurityException.principalLocked("Client")
                     .withDebugDetails("problem", "Client is locked");
         }
 
         if (!client.getStatus().isActive()) {
-            throw AuthenticationException.principalInactive("Client")
+            throw CustomSecurityException.principalInactive("Client")
                     .withDebugDetails("problem", "Client is inactive");
         }
 

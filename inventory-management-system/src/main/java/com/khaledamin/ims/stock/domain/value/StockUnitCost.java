@@ -34,8 +34,4 @@ public record StockUnitCost(BigDecimal value) {
         return new StockUnitCost(value);
     }
 
-    @Override
-    public String toString() {
-        return value.toPlainString();
-    }
 }

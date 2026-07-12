@@ -70,4 +70,11 @@ public interface BusinessEventLogger {
     // Client events
     void clientCreated(String clientCode);
     void clientSecretRotated(String clientCode);
+
+
+    // Reservation events
+    void reservationCreated(String reservationCode, String organizationCode);
+    void reservationReleased(String reservationCode, String organizationCode);
+    void reservationConfirmed(String reservationCode, String organizationCode);
+    void reservationExpired(String reservationCode, String organizationCode);
 }

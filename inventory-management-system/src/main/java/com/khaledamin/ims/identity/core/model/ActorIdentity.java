@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import java.util.Objects;
 
@@ -172,10 +173,10 @@ public class ActorIdentity {
             column = @Column(
                     name = "actor_code",
                     nullable = false,
-                    updatable = false,
-                    comment = "Stable globally unique business identity"
+                    updatable = false
             )
     )
+    @Comment("Stable globally unique business identity")
     private ActorCode actorCode;
 
 

@@ -15,8 +15,9 @@ public final class StockListBatchExamples {
             {
               "code": "BAT-01AAA111",
               "received_quantity": 100,
+              "available_quantity": 70,
+              "reserved_quantity": 20,
               "consumed_quantity": 10,
-              "available_quantity": 90,
               "received_date": "2026-06-01",
               "expiration_date": "2027-06-01",
               "unit_cost": 500.00,
@@ -26,8 +27,9 @@ public final class StockListBatchExamples {
             {
               "code": "BAT-01AAA222",
               "received_quantity": 50,
-              "consumed_quantity": 5,
               "available_quantity": 45,
+              "reserved_quantity": 0,
+              "consumed_quantity": 5,
               "received_date": "2026-05-10",
               "expiration_date": "2027-05-10",
               "unit_cost": 480.00,

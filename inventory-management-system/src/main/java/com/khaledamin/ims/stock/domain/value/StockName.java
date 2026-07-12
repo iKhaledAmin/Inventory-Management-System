@@ -38,12 +38,12 @@ public record StockName(String value) {
     private static void validate(String value) {
 
         if (value == null || value.isBlank()) {
-            throw StockValidationException.invalidItemName()
+            throw StockValidationException.invalidName()
                     .withClientDetails("reason", NULL_ERROR_MESSAGE);
         }
 
         if (value.length() > MAX_LENGTH) {
-            throw StockValidationException.invalidItemName()
+            throw StockValidationException.invalidName()
                     .withClientDetails("reason", MAX_LENGTH_ERROR_MESSAGE)
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())
@@ -51,7 +51,7 @@ public record StockName(String value) {
         }
 
         if (!value.matches(PATTERN)) {
-            throw StockValidationException.invalidItemName()
+            throw StockValidationException.invalidName()
                     .withClientDetails("reason", PATTERN_ERROR_MESSAGE)
                     .withClientDetails("expectedFormat", "product_name (e.g. 'Product Name')")
                     .withDebugDetails("receivedValue", value)

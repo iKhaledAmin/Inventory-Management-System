@@ -74,11 +74,13 @@ application:
     sender:
       from: no-reply@inventory-system.com
       reply-to: support@inventory-system.com
-
     retry:
       policy:
         backoff-seconds: 60
         max-attempts: 5
-
       scheduler:
         interval-seconds: 120
+
+  reservation:
+      scheduler:
+        interval-seconds: 60

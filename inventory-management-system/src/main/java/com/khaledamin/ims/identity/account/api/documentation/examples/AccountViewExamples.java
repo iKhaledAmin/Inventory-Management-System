@@ -75,20 +75,4 @@ public final class AccountViewExamples {
         }
         """;
 
-    public static final String ACCOUNT_NOT_FOUND = """
-        {
-          "meta": {
-            "timestamp": "2026-06-29T15:30:00",
-            "request_id": "01K123ABC456DEF789GHIJKL"
-          },
-          "error": {
-            "status": 404,
-            "code": "ACCOUNT_NOT_FOUND",
-            "message": "Account not found",
-            "path": "/account",
-            "details": {}
-          }
-        }
-        """;
-
 }

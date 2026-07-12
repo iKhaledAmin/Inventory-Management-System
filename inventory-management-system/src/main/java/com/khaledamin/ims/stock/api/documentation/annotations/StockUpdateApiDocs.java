@@ -1,8 +1,8 @@
 package com.khaledamin.ims.stock.api.documentation.annotations;
 
 import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
-import com.khaledamin.ims.core.api.documentation.annotations.UnauthorizedApiDocs;
-import com.khaledamin.ims.core.api.documentation.examples.ForbiddenExamples;
+import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
+import com.khaledamin.ims.core.api.documentation.examples.UnauthorizedExamples;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.stock.api.documentation.examples.StockUpdateExamples;
 import com.khaledamin.ims.stock.api.documentation.schema.StockApiResponseSchema;
@@ -125,7 +125,7 @@ import java.lang.annotation.*;
                         @ExampleObject(
                                 name = "Access Denied",
                                 summary = "Authenticated user does not have required authority",
-                                value = ForbiddenExamples.FORBIDDEN
+                                value = UnauthorizedExamples.FORBIDDEN
                         ),
 
                         @ExampleObject(
@@ -137,7 +137,7 @@ import java.lang.annotation.*;
         )
 )
 
-@UnauthorizedApiDocs
+@UnauthenticatedApiDocs
 @InternalServerErrorApiDocs
 public @interface StockUpdateApiDocs {
 }

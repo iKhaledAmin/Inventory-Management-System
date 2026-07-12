@@ -25,9 +25,10 @@ public class StockBatchPageRequest extends PageRequest {
             allowableValues = {
                     "RECEIVED_DATE",
                     "EXPIRATION_DATE",
-                    "EXPIRATION_DATE",
                     "RECEIVED_QUANTITY",
                     "AVAILABLE_QUANTITY",
+                    "RESERVED_QUANTITY",
+                    "CONSUMED_QUANTITY",
                     "UNIT_COST"
             },
             example = "RECEIVED_DATE"

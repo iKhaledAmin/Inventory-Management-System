@@ -3,6 +3,7 @@ package com.khaledamin.ims.auth.client.api.documentation.annotations;
 import com.khaledamin.ims.auth.client.api.documentation.examples.ClientTokenExamples;
 import com.khaledamin.ims.auth.client.api.documentation.schema.ClientTokenApiResponseSchema;
 import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

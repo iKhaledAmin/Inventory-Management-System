@@ -1,7 +1,7 @@
 package com.khaledamin.ims.stock.api.dto;
 
 import com.khaledamin.ims.stock.domain.value.StockExpirationDate;
-import com.khaledamin.ims.stock.domain.value.StockReceivedQuantity;
+import com.khaledamin.ims.stock.domain.value.StockQuantity;
 import com.khaledamin.ims.stock.domain.value.StockUnitCost;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
@@ -26,8 +26,8 @@ public class RestockRequest {
             description = "Quantity received in this batch",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @NotNull(message = StockReceivedQuantity.NULL_ERROR_MESSAGE)
-    @Positive(message = StockReceivedQuantity.INVALID_ERROR_MESSAGE)
+    @NotNull(message = StockQuantity.NULL_ERROR_MESSAGE)
+    @Positive(message = StockQuantity.INVALID_ERROR_MESSAGE)
     private Long quantity;
 
     @Schema(

@@ -88,6 +88,13 @@ public class Organization extends LifecycleAuditableEntity {
     private ActorIdentity memberIdentity;
 
 
+    @OneToOne(
+            mappedBy = "organization",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private OrganizationSettings settings;
+
     // --------------------------------------------------- End Relations --------------------------------------------------- //
 
 
@@ -100,13 +107,19 @@ public class Organization extends LifecycleAuditableEntity {
 
         String code = OrganizationCodeGenerator.generate();
 
-        return Organization.builder()
+        Organization newOrganization = Organization.builder()
                 .code(code)
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .status(OrganizationStatus.getDefault())
                 .build();
 
+
+        newOrganization.settings = OrganizationSettings.create(
+                newOrganization
+        );
+
+        return newOrganization;
 
     }
 

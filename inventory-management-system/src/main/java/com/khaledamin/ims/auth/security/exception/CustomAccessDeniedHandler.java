@@ -24,7 +24,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     ) throws IOException {
 
 
-        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
+        SecurityError error = SecurityError.ACCESS_DENIED;
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(error.getStatus().value())

@@ -19,8 +19,9 @@ public final class StockRestockExamples {
             "status": "ACTIVE",
             "totalBatchCount": 3,
             "totalReceivedQuantity": 250,
+            "totalAvailableQuantity": 230,
+            "totalReservedQuantity": 10,
             "totalConsumedQuantity": 10,
-            "totalAvailableQuantity": 240,
             "totalStockValue": 240000.00,
             "nearestExpirationDate": "2027-06-01",
             "image": null
@@ -42,8 +43,9 @@ public final class StockRestockExamples {
             "status": "ACTIVE",
             "totalBatchCount": 3,
             "totalReceivedQuantity": 250,
+            "totalAvailableQuantity": 230,
+            "totalReservedQuantity": 10,
             "totalConsumedQuantity": 10,
-            "totalAvailableQuantity": 240,
             "totalStockValue": 240000.00,
             "nearestExpirationDate": "2027-06-01",
             "image": {
@@ -85,7 +87,7 @@ public final class StockRestockExamples {
             "message": "Validation failed",
             "path": "/stocks/STK-01KABC123DEF456GHI789JKL",
             "details": {
-              "receivedQuantity": [
+              "stockQuantity": [
                 "must be greater than 0"
               ]
             }
@@ -145,7 +147,7 @@ public final class StockRestockExamples {
             "message": "Validation failed",
             "path": "/stocks/STK-01KABC123DEF456GHI789JKL",
             "details": {
-              "receivedQuantity": [
+              "stockQuantity": [
                 "must be greater than 0"
               ],
               "unitCost": [

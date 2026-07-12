@@ -9,8 +9,11 @@ import com.khaledamin.ims.stock.domain.repository.StockBatchRepository;
 import com.khaledamin.ims.stock.infrastructure.persistence.specification.StockBatchSpecifications;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @AllArgsConstructor
@@ -21,10 +24,7 @@ public class StockBatchRepositoryImpl implements StockBatchRepository {
     @Override
     public PageResult<StockBatch> findAllByStockCode(String stockCode, StockBatchPageRequest request) {
 
-        Specification<StockBatch> spec = buildSpecification(
-                stockCode,
-                request
-        );
+        Specification<StockBatch> spec = buildSpecification(stockCode, request);
 
         Page<StockBatch> page = jpaRepository.findAll(
                 spec,
@@ -35,14 +35,16 @@ public class StockBatchRepositoryImpl implements StockBatchRepository {
     }
 
 
+    @Override
+    public List<StockBatch> findAvailableByStockCode(String stockCode, Sort sort) {
 
-    private Specification<StockBatch> buildSpecification(
-            String stockCode,
-            StockBatchPageRequest request
-    ) {
+        return jpaRepository.findByStockCodeAndAvailableQuantityGreaterThan(stockCode, 0L, sort);
+    }
 
-        Specification<StockBatch> spec =
-                StockBatchSpecifications.stockCode(stockCode);
+
+    private Specification<StockBatch> buildSpecification(String stockCode, StockBatchPageRequest request) {
+
+        Specification<StockBatch> spec = StockBatchSpecifications.stockCode(stockCode);
 
         if (Boolean.TRUE.equals(request.getHasStock())) {
 

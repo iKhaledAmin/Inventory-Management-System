@@ -1,8 +1,5 @@
 package com.khaledamin.ims.core.exception.core;
 
-
-
-import com.khaledamin.ims.auth.security.exception.AuthorizationError;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.core.api.response.ApiResponseFactory;
 import com.khaledamin.ims.core.api.response.ErrorResponse;
@@ -10,8 +7,8 @@ import com.khaledamin.ims.core.exception.business.BusinessError;
 import com.khaledamin.ims.core.exception.business.BusinessException;
 import com.khaledamin.ims.core.exception.policy.PolicyError;
 import com.khaledamin.ims.core.exception.policy.PolicyException;
-import com.khaledamin.ims.core.exception.security.SecurityError;
-import com.khaledamin.ims.core.exception.security.SecurityException;
+import com.khaledamin.ims.auth.security.exception.SecurityError;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.exception.technical.TechnicalError;
 import com.khaledamin.ims.core.exception.technical.TechnicalException;
 import com.khaledamin.ims.core.exception.validation.ValidationException;
@@ -153,8 +150,8 @@ public class CustomExceptionHandler {
                 .body(ApiResponseFactory.error(errorResponse));
     }
 
-    @ExceptionHandler(SecurityException.class)
-    public ResponseEntity<ApiErrorResponse> handleSecurityException(SecurityException ex, HttpServletRequest request) {
+    @ExceptionHandler(CustomSecurityException.class)
+    public ResponseEntity<ApiErrorResponse> handleSecurityException(CustomSecurityException ex, HttpServletRequest request) {
 
         SecurityError error = ex.getError();
 
@@ -174,7 +171,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
 
-        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
+        SecurityError error = SecurityError.ACCESS_DENIED;
 
         securityEventLogger.authorizationDenied(
                 request.getMethod(),

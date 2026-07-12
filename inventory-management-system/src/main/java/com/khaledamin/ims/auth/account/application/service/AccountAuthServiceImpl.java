@@ -9,7 +9,7 @@ import com.khaledamin.ims.auth.account.infrastructure.principal.AccountPrincipal
 import com.khaledamin.ims.auth.account.infrastructure.authentication.AccountAuthenticationService;
 import com.khaledamin.ims.core.api.response.ApiActionResponse;
 import com.khaledamin.ims.core.exception.technical.TechnicalException;
-import com.khaledamin.ims.core.exception.security.SecurityException;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.logging.event.BusinessEventLogger;
 import com.khaledamin.ims.core.logging.event.SecurityEventLogger;
 import com.khaledamin.ims.core.logging.core.ActorLoggingContext;
@@ -128,7 +128,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
             return accountAuthMapper.toLoginResponse(jwtToken, principal);
 
-        } catch (SecurityException ex) {
+        } catch (CustomSecurityException ex) {
 
             securityEventLogger.loginFailed(
                     request.getUsername(),

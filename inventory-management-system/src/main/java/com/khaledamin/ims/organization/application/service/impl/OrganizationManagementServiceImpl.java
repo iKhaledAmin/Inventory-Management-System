@@ -14,7 +14,7 @@ import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
-import com.khaledamin.ims.organization.domain.OrganizationAccessPolicy;
+import com.khaledamin.ims.organization.domain.policy.OrganizationAccessPolicy;
 import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.command.OrganizationUpdateCommand;
 import com.khaledamin.ims.organization.domain.model.Organization;

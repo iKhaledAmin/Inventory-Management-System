@@ -29,20 +29,4 @@ public final class StockExistenceExamples {
       }
     }
     """;
-
-    public static final String NOT_FOUND = """
-    {
-      "meta": {
-        "timestamp": "2026-07-03T10:00:00",
-        "request_id": "REQ-IMS-404"
-      },
-      "error": {
-        "status": 404,
-        "code": "STOCK_NOT_FOUND",
-        "message": "Stock not found",
-        "path": "/stocks/STK-INVALID/exists",
-        "details": {}
-      }
-    }
-    """;
 }

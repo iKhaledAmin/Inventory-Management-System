@@ -16,10 +16,10 @@ import com.khaledamin.ims.stock.application.service.StockManagementService;
 import com.khaledamin.ims.stock.application.service.StockQueryService;
 import com.khaledamin.ims.stock.domain.command.RestockCommand;
 import com.khaledamin.ims.stock.domain.command.StockCreateCommand;
-import com.khaledamin.ims.stock.domain.command.StockIUpdateCommand;
+import com.khaledamin.ims.stock.domain.command.StockUpdateCommand;
+import com.khaledamin.ims.stock.domain.model.Stock;
 import com.khaledamin.ims.stock.domain.model.StockBatch;
 import com.khaledamin.ims.stock.domain.model.StockImagePreset;
-import com.khaledamin.ims.stock.domain.model.StockItem;
 import com.khaledamin.ims.stock.domain.policy.StockAccessPolicy;
 import com.khaledamin.ims.stock.domain.repository.StockRepository;
 import com.khaledamin.ims.stock.domain.value.StockCode;
@@ -46,7 +46,7 @@ public class StockManagementServiceImpl implements StockManagementService {
 
     @Transactional
     @Override
-    public StockItem create(StockCreateRequest request) {
+    public Stock create(StockCreateRequest request) {
 
         Actor currentActor = actorProvider.getCurrent();
         Organization organization = organizationQueryService.getByOwnerIdentity(currentActor.getActorIdentity());
@@ -59,16 +59,16 @@ public class StockManagementServiceImpl implements StockManagementService {
         StockCreateCommand command = StockCreateCommand.of(request);
 
         // Domain logic
-        StockItem newStockItem = StockItem.create(command);
+        Stock newStock = Stock.create(command);
 
-        newStockItem.attachOrganization(organization);
+        newStock.attachOrganization(organization);
         handleAddImage(
-                newStockItem,
+                newStock,
                 request.getImage()
         );
 
         // Persist
-        StockItem saved = stockRepository.save(newStockItem);
+        Stock saved = stockRepository.save(newStock);
 
         // Log the business operation event
         businessEventLogger.stockCreated(
@@ -80,14 +80,14 @@ public class StockManagementServiceImpl implements StockManagementService {
 
     @Transactional
     @Override
-    public StockItem update(StockCode code, StockUpdateRequest request) {
+    public Stock update(StockCode code, StockUpdateRequest request) {
 
-        StockItem existingStock = stockQueryService.getByCode(code);
+        Stock existingStock = stockQueryService.getByCode(code);
         Actor actor = actorProvider.getCurrent();
 
         stockAccessPolicy.canUpdate(actor, existingStock);
 
-        StockIUpdateCommand command = StockIUpdateCommand.of(request);
+        StockUpdateCommand command = StockUpdateCommand.of(request);
 
         if (request.getImage() != null) {
             handleUpdateImage(
@@ -100,7 +100,7 @@ public class StockManagementServiceImpl implements StockManagementService {
         existingStock.update(command);
 
         // Persist
-        StockItem saved = stockRepository.save(existingStock);
+        Stock saved = stockRepository.save(existingStock);
 
         // Log the business operation event
         businessEventLogger.StockUpdated(
@@ -115,7 +115,7 @@ public class StockManagementServiceImpl implements StockManagementService {
     @Override
     public void delete(StockCode stockCode) {
 
-        StockItem stock = stockQueryService.getByCode(stockCode);
+        Stock stock = stockQueryService.getByCode(stockCode);
 
         Actor actor = actorProvider.getCurrent();
 
@@ -132,9 +132,9 @@ public class StockManagementServiceImpl implements StockManagementService {
 
     @Transactional
     @Override
-    public StockItem restock(StockCode stockCode, RestockRequest request) {
+    public Stock restock(StockCode stockCode, RestockRequest request) {
 
-        StockItem stock = stockQueryService.getByCode(stockCode);
+        Stock stock = stockQueryService.getByCode(stockCode);
         Actor actor = actorProvider.getCurrent();
 
         stockAccessPolicy.canRestock(actor, stock);
@@ -143,7 +143,7 @@ public class StockManagementServiceImpl implements StockManagementService {
 
         stock.restock(command);
 
-        StockItem saved = stockRepository.save(stock);
+        Stock saved = stockRepository.save(stock);
 
         // Log the business operation event
         businessEventLogger.stockRestocked(
@@ -154,9 +154,9 @@ public class StockManagementServiceImpl implements StockManagementService {
     }
 
     @Override
-    public StockItem view(StockCode stockCode) {
+    public Stock view(StockCode stockCode) {
 
-        StockItem stock = stockQueryService.getByCode(stockCode);
+        Stock stock = stockQueryService.getByCode(stockCode);
         Actor actor = actorProvider.getCurrent();
 
         stockAccessPolicy.canView(actor, stock);
@@ -171,7 +171,7 @@ public class StockManagementServiceImpl implements StockManagementService {
 
 
     @Override
-    public PageResult<StockItem> list(StockPageRequest request) {
+    public PageResult<Stock> list(StockPageRequest request) {
 
         Actor currentActor = actorProvider.getCurrent();
         Organization organization = organizationQueryService.getByOwnerIdentity(currentActor.getActorIdentity());
@@ -179,7 +179,7 @@ public class StockManagementServiceImpl implements StockManagementService {
         OrganizationCode organizationCode = OrganizationCode.of(
                 organization.getCode()
         );
-        PageResult<StockItem> stocks = stockQueryService.getAllByOrganizationCode(organizationCode, request);
+        PageResult<Stock> stocks = stockQueryService.getAllByOrganizationCode(organizationCode, request);
 
         // Log the business operation event
         businessEventLogger.stockListed(
@@ -196,7 +196,7 @@ public class StockManagementServiceImpl implements StockManagementService {
     @Override
     public PageResult<StockBatch> listBatches(StockCode stockCode, StockBatchPageRequest request) {
 
-        StockItem stock = stockQueryService.getByCode(stockCode);
+        Stock stock = stockQueryService.getByCode(stockCode);
         Actor actor = actorProvider.getCurrent();
 
         stockAccessPolicy.canListBatches(actor, stock);
@@ -235,7 +235,7 @@ public class StockManagementServiceImpl implements StockManagementService {
 
     // --------------------------------------------------- Helper methods ---------------------------------------------------
 
-    private void handleAddImage(StockItem item, MultipartFile imageFile) {
+    private void handleAddImage(Stock item, MultipartFile imageFile) {
         if (imageFile == null || imageFile.isEmpty()) {
             return;
         }
@@ -244,7 +244,7 @@ public class StockManagementServiceImpl implements StockManagementService {
         item.addImage(newImage);
     }
 
-    private void handleUpdateImage(StockItem item, MultipartFile imageFile) {
+    private void handleUpdateImage(Stock item, MultipartFile imageFile) {
 
         if (item.getImage() == null) {
 

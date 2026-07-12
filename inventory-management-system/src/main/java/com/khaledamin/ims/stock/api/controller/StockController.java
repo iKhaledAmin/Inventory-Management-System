@@ -14,7 +14,7 @@ import com.khaledamin.ims.stock.api.mapper.StockDetailsMapper;
 import com.khaledamin.ims.stock.api.mapper.StockSummaryMapper;
 import com.khaledamin.ims.stock.application.service.StockManagementService;
 import com.khaledamin.ims.stock.domain.model.StockBatch;
-import com.khaledamin.ims.stock.domain.model.StockItem;
+import com.khaledamin.ims.stock.domain.model.Stock;
 import com.khaledamin.ims.stock.domain.value.StockCode;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -63,7 +63,7 @@ public class StockController {
             StockCreateRequest request
     ) {
 
-        StockItem created = stockManagementService.create(request);
+        Stock created = stockManagementService.create(request);
 
         StockDetailedResponse response = stockDetailsMapper.toResponse(created);
 
@@ -96,7 +96,7 @@ public class StockController {
             StockUpdateRequest request
     ) {
 
-        StockItem updated = stockManagementService.update(
+        Stock updated = stockManagementService.update(
                 StockCode.of(code),
                 request
         );
@@ -155,7 +155,7 @@ public class StockController {
             RestockRequest request
     ) {
 
-        StockItem updated = stockManagementService.restock(
+        Stock updated = stockManagementService.restock(
                 StockCode.of(code),
                 request
         );
@@ -183,7 +183,7 @@ public class StockController {
             String code
     ) {
 
-        StockItem stock = stockManagementService.view(
+        Stock stock = stockManagementService.view(
                 StockCode.of(code)
         );
 
@@ -205,7 +205,7 @@ public class StockController {
             StockPageRequest request
     ) {
 
-        PageResult<StockItem> stocks =stockManagementService.list(request);
+        PageResult<Stock> stocks =stockManagementService.list(request);
 
         PageResult<StockSummaryResponse> response = PageMapper.map(stocks, stockSummaryMapper::toResponse);
 

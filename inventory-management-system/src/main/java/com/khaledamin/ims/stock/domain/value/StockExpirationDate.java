@@ -29,8 +29,4 @@ public record StockExpirationDate(LocalDate value) {
         return new StockExpirationDate(value);
     }
 
-    @Override
-    public String toString() {
-        return value == null ? null : value.toString();
-    }
 }

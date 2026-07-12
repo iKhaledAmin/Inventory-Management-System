@@ -9,7 +9,7 @@ public enum ClientStatus {
 
     // helper methods
     public static ClientStatus getDefault() {
-        return DISABLED;
+        return ACTIVE;
     }
 
     public boolean isDisabled() { return this == DISABLED;}

@@ -1,8 +1,8 @@
 package com.khaledamin.ims.identity.account.api.documentation.annotations;
 
-import com.khaledamin.ims.core.api.documentation.annotations.ForbiddenApiDocs;
-import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.khaledamin.ims.core.api.documentation.annotations.UnauthorizedApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.identity.account.api.documentation.examples.AccountUpdateExamples;
 import com.khaledamin.ims.identity.account.api.documentation.schema.AccountApiResponseSchema;
@@ -119,8 +119,8 @@ import java.lang.annotation.*;
         )
 )
 
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
-@ForbiddenApiDocs
 @InternalServerErrorApiDocs
 public @interface AccountUpdateApiDocs {
 }

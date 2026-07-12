@@ -1,14 +1,11 @@
 package com.khaledamin.ims.auth.security.Spring_integration;
 
-
-
-import com.khaledamin.ims.auth.security.exception.JwtAuthenticationException;
 import com.khaledamin.ims.auth.security.core.jwt.JwtPayload;
 import com.khaledamin.ims.auth.security.core.jwt.JwtService;
 import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.khaledamin.ims.auth.security.core.principal.PrincipalResolverRegistry;
 import com.khaledamin.ims.core.exception.technical.TechnicalException;
-import com.khaledamin.ims.core.exception.security.SecurityException;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.logging.event.SecurityEventLogger;
 import com.khaledamin.ims.core.logging.core.ActorLoggingContext;
 import jakarta.servlet.FilterChain;
@@ -17,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -33,6 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final PrincipalResolverRegistry principalResolverRegistry;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final SecurityEventLogger securityEventLogger;
+    private final PublicEndpointMatcher publicEndpointMatcher;
 
     @Override
     protected void doFilterInternal(
@@ -47,13 +46,15 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = extractToken(request);
-        if (token == null) {
+
+        if (publicEndpointMatcher.isPublic(request)){
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
+
+            String token = extractToken(request);
 
             // Parse token (snapshot of the token)
             JwtPayload payload = jwtService.extractPayload(token);
@@ -74,23 +75,29 @@ public class JwtFilter extends OncePerRequestFilter {
             // Log authentication success
             securityEventLogger.authenticationSucceeded(principal);
 
-        } catch (SecurityException | TechnicalException ex)  {
+        } catch (CustomSecurityException | TechnicalException ex)  {
 
             // Log authentication failures
-            if (ex instanceof SecurityException securityException){
-                securityEventLogger.authenticationFailed(securityException);
+            if (ex instanceof CustomSecurityException customSecurityException){
+                securityEventLogger.authenticationFailed(customSecurityException);
             }
 
             SecurityContextHolder.clearContext();
 
-            authenticationEntryPoint.commence(request, response, new JwtAuthenticationException(ex));
+            authenticationEntryPoint.commence(
+                    request,
+                    response,
+                    new InsufficientAuthenticationException(
+                            ex.getMessage(),
+                            ex
+                    )
+            );
 
             return;
         }
 
         filterChain.doFilter(request, response);
     }
-
 
 
     private String extractToken(HttpServletRequest request) {

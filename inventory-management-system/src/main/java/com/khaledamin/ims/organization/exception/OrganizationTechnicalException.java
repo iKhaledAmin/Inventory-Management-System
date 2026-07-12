@@ -38,4 +38,7 @@ public class OrganizationTechnicalException extends TechnicalException {
     }
 
 
+    public static OrganizationTechnicalException nullOrganization() {
+        return new OrganizationTechnicalException(OrganizationTechnicalError.ORGANIZATION_NULL);
+    }
 }

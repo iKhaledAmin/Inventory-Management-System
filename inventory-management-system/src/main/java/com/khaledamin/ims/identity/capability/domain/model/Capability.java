@@ -146,34 +146,5 @@ public class Capability extends AuditableEntity {
         return resource + "_" + action;
     }
 
-    /**
-     * Converts this capability into its canonical OAuth2 scope representation.
-     *
-     * <p>
-     * The scope representation is intended for token-based authorization systems
-     * such as OAuth2 and JWT claims.
-     * </p>
-     *
-     * <p>
-     * Format:
-     * </p>
-     * <pre>
-     * resource:action
-     * </pre>
-     *
-     * <p>
-     * Examples:
-     * </p>
-     * <pre>
-     * role:create
-     * stock_item:update
-     * password_reset:confirm
-     * </pre>
-     *
-     * @return canonical scope identifier
-     */
-    public String toScope() {
-        return resource + ":" + action;
-    }
 
 }

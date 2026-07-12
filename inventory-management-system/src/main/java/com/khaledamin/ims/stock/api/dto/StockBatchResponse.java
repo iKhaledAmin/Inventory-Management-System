@@ -26,13 +26,17 @@ public class StockBatchResponse {
     @JsonProperty("received_quantity")
     private Long receivedQuantity;
 
-    @Schema(example = "20")
-    @JsonProperty("consumed_quantity")
-    private Long consumedQuantity;
-
     @Schema(example = "80")
     @JsonProperty("available_quantity")
     private Long availableQuantity;
+
+    @Schema(example = "10")
+    @JsonProperty("reserved_quantity")
+    private Long reservedQuantity;
+
+    @Schema(example = "10")
+    @JsonProperty("consumed_quantity")
+    private Long consumedQuantity;
 
     @Schema(example = "2026-07-01")
     @JsonProperty("received_date")

@@ -46,7 +46,11 @@ public enum OrganizationTechnicalError implements TechnicalError {
             "Organization image upload failed"
     ),
 
-  ;
+    ORGANIZATION_NULL(
+            SystemDomain.ORGANIZATION,
+            "ORGANIZATION_NULL",
+            "Organization is null"
+    );
     private final SystemDomain domain;
     private final String code;
     private final String message;

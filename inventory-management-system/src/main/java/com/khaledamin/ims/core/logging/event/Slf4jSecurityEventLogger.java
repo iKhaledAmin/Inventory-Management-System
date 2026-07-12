@@ -3,7 +3,7 @@ package com.khaledamin.ims.core.logging.event;
 import com.khaledamin.ims.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.khaledamin.ims.core.constant.SystemDomain;
 import com.khaledamin.ims.core.logging.definition.EventType;
-import com.khaledamin.ims.core.exception.security.SecurityException;
+import com.khaledamin.ims.auth.security.exception.CustomSecurityException;
 import com.khaledamin.ims.core.logging.definition.LogCategory;
 import com.khaledamin.ims.core.logging.definition.SecurityEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
     }
 
     @Override
-    public void authenticationFailed( SecurityException ex) {
+    public void authenticationFailed( CustomSecurityException ex) {
 
         log.atWarn()
                 .addKeyValue("category", LogCategory.EVENT)
@@ -72,7 +72,7 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
     }
 
     @Override
-    public void loginFailed(String subject,SecurityException  ex) {
+    public void loginFailed(String subject, CustomSecurityException ex) {
 
 
         log.atWarn()

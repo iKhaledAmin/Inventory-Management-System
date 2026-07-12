@@ -1,16 +1,16 @@
 package com.khaledamin.ims.stock.infrastructure.persistence.repository;
 
 import com.khaledamin.ims.core.persistence.BaseRepository;
-import com.khaledamin.ims.stock.domain.model.StockItem;
+import com.khaledamin.ims.stock.domain.model.Stock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Optional;
 
-public interface StockJpaRepository extends BaseRepository<StockItem, Long> {
-    Optional<StockItem> getByCode(String itemCode);
+public interface StockJpaRepository extends BaseRepository<Stock, Long> {
+    Optional<Stock> getByCode(String itemCode);
 
-    Page<StockItem> findAllByOrganizationCode(String organizationCode, PageRequest request);
+    Page<Stock> findAllByOrganizationCode(String organizationCode, PageRequest request);
 
     boolean existsBySkuAndOrganizationCode(String itemSku, String organizationCode);
 

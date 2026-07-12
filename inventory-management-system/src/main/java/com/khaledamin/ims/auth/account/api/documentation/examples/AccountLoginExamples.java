@@ -29,7 +29,7 @@ public final class AccountLoginExamples {
               "access_token": "eyJhbGciOiJIUzI1NiJ9...",
               "token_type": "Bearer",
               "expires_at": "2026-07-06T10:12:47Z",
-              "expires_in": 1798,
+              "expires_in": 1798
             }
           }
         }
