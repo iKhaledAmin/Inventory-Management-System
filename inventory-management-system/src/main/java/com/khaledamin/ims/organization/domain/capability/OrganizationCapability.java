@@ -43,7 +43,16 @@ public enum OrganizationCapability implements CapabilityDefinition {
             "Rotate Organization Client Secret",
             "Allows rotating client secret in specific organization",
             "ACCOUNT"
-    )
+    ),
+
+    ORGANIZATION_UPDATE_SETTINGS(
+            "ORGANIZATION_UPDATE_SETTINGS",
+            "organization",
+            "update_settings",
+            "Update Organization Settings",
+            "Allows updating organization operational settings",
+            "ACCOUNT"
+    ),
 
     ;
 

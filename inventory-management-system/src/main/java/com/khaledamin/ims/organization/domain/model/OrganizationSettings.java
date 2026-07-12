@@ -1,6 +1,7 @@
 package com.khaledamin.ims.organization.domain.model;
 
 import com.khaledamin.ims.core.audit.AuditableEntity;
+import com.khaledamin.ims.organization.domain.command.OrganizationSettingsUpdateCommand;
 import com.khaledamin.ims.organization.exception.OrganizationTechnicalException;
 import com.khaledamin.ims.stock.domain.model.StockAllocationStrategy;
 import jakarta.persistence.*;
@@ -25,20 +26,25 @@ public class OrganizationSettings extends AuditableEntity {
     private StockAllocationStrategy allocationStrategy;
 
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "organization_id", nullable = false)
-    private Organization organization;
-
-
-    public static OrganizationSettings create(Organization organization) {
-        if (organization == null){
-            throw OrganizationTechnicalException.nullOrganization();
-        }
+    public static OrganizationSettings create() {
 
         return OrganizationSettings.builder()
-                .organization(organization)
                 .reservationExpirationMinutes(5L) // 5 minutes as default (organization owner can change it)
                 .allocationStrategy(StockAllocationStrategy.getDefault())
                 .build();
+    }
+
+
+    public void update(OrganizationSettingsUpdateCommand command) {
+
+        if (command == null) {
+            throw OrganizationTechnicalException.nullOrganizationSettingsUpdateCommand();
+        }
+
+        command.reservationExpirationMinutes()
+                .ifPresent(value -> this.reservationExpirationMinutes = value);
+
+        command.allocationStrategy()
+                .ifPresent(value -> this.allocationStrategy = value);
     }
 }

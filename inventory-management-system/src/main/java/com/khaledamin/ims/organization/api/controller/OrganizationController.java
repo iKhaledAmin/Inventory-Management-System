@@ -8,15 +8,16 @@ import com.khaledamin.ims.identity.client.api.dto.ClientSecretResponse;
 import com.khaledamin.ims.identity.client.api.mapper.ClientMapper;
 import com.khaledamin.ims.identity.client.domain.model.Client;
 import com.khaledamin.ims.identity.core.model.ActorCode;
-import com.khaledamin.ims.organization.api.documentation.annotations.OrganizationClientCreateApiDocs;
-import com.khaledamin.ims.organization.api.documentation.annotations.OrganizationClientRotateSecretApiDocs;
-import com.khaledamin.ims.organization.api.documentation.annotations.OrganizationUpdateApiDocs;
-import com.khaledamin.ims.organization.api.documentation.annotations.OrganizationViewApiDocs;
+import com.khaledamin.ims.organization.api.documentation.annotations.*;
 import com.khaledamin.ims.organization.api.dto.OrganizationResponse;
+import com.khaledamin.ims.organization.api.dto.OrganizationSettingsResponse;
+import com.khaledamin.ims.organization.api.dto.OrganizationSettingsUpdateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.api.mapper.OrganizationMapper;
+import com.khaledamin.ims.organization.api.mapper.OrganizationSettingsMapper;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.domain.model.Organization;
+import com.khaledamin.ims.organization.domain.model.OrganizationSettings;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
                 - Update organization profile
                 - Create organization client
                 - Rotate organization client secret
+                - Update organization settings
                 """
 )
 @RestController
@@ -45,6 +47,7 @@ public class OrganizationController {
 
     private final OrganizationManagementService organizationManagementService;
     private final OrganizationMapper organizationMapper;
+    private final OrganizationSettingsMapper organizationSettingsMapper;
     private final ClientMapper clientMapper;
 
 
@@ -124,6 +127,25 @@ public class OrganizationController {
                                 .clientSecret(secret)
                                 .build()
                 )
+        );
+    }
+
+    @OrganizationSettingsUpdateApiDocs
+    @PreAuthorize("hasAuthority('organization_update_settings')")
+    @PatchMapping("/settings")
+    public ResponseEntity<ApiResponse<OrganizationSettingsResponse>> updateSettings(
+
+            @Valid
+            @RequestBody
+            OrganizationSettingsUpdateRequest request
+    ) {
+
+        OrganizationSettings settings = organizationManagementService.updateSettings(request);
+
+        OrganizationSettingsResponse response = organizationSettingsMapper.toResponse(settings);
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(response)
         );
     }
 }

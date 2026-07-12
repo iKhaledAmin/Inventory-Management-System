@@ -89,10 +89,11 @@ public class Organization extends LifecycleAuditableEntity {
 
 
     @OneToOne(
-            mappedBy = "organization",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
+    @JoinColumn(name = "settings_id", nullable = false)
     private OrganizationSettings settings;
 
     // --------------------------------------------------- End Relations --------------------------------------------------- //
@@ -106,21 +107,15 @@ public class Organization extends LifecycleAuditableEntity {
         }
 
         String code = OrganizationCodeGenerator.generate();
+        OrganizationSettings settings = OrganizationSettings.create();
 
-        Organization newOrganization = Organization.builder()
+        return Organization.builder()
                 .code(code)
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .status(OrganizationStatus.getDefault())
+                .settings(settings)
                 .build();
-
-
-        newOrganization.settings = OrganizationSettings.create(
-                newOrganization
-        );
-
-        return newOrganization;
-
     }
 
     public void update(OrganizationUpdateCommand command){

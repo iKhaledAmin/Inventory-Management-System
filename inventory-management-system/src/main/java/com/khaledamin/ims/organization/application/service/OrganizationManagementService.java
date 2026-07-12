@@ -5,8 +5,10 @@ import com.khaledamin.ims.identity.client.domain.model.Client;
 import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
+import com.khaledamin.ims.organization.api.dto.OrganizationSettingsUpdateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.domain.model.Organization;
+import com.khaledamin.ims.organization.domain.model.OrganizationSettings;
 
 public interface OrganizationManagementService {
 
@@ -19,5 +21,7 @@ public interface OrganizationManagementService {
     Client createClient(ClientCreateRequest request);
 
     String rotateClientSecret(ActorCode clientCode);
+
+    OrganizationSettings updateSettings(OrganizationSettingsUpdateRequest request);
 
 }

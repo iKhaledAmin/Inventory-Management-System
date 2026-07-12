@@ -55,6 +55,8 @@ public interface BusinessEventLogger {
     void organizationCreated(String organizationCode);
     void organizationUpdated(String organizationCode);
     void organizationViewed(String organizationCode);
+    void organizationSettingsUpdated(String organizationCode);
+
 
 
     // Stock events
@@ -77,4 +79,5 @@ public interface BusinessEventLogger {
     void reservationReleased(String reservationCode, String organizationCode);
     void reservationConfirmed(String reservationCode, String organizationCode);
     void reservationExpired(String reservationCode, String organizationCode);
+
 }

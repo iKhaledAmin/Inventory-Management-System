@@ -11,9 +11,12 @@ import com.khaledamin.ims.identity.core.model.ActorCode;
 import com.khaledamin.ims.identity.core.model.ActorIdentity;
 import com.khaledamin.ims.identity.core.provider.ActorProvider;
 import com.khaledamin.ims.organization.api.dto.OrganizationCreateRequest;
+import com.khaledamin.ims.organization.api.dto.OrganizationSettingsUpdateRequest;
 import com.khaledamin.ims.organization.api.dto.OrganizationUpdateRequest;
 import com.khaledamin.ims.organization.application.service.OrganizationManagementService;
 import com.khaledamin.ims.organization.application.service.OrganizationQueryService;
+import com.khaledamin.ims.organization.domain.command.OrganizationSettingsUpdateCommand;
+import com.khaledamin.ims.organization.domain.model.OrganizationSettings;
 import com.khaledamin.ims.organization.domain.policy.OrganizationAccessPolicy;
 import com.khaledamin.ims.organization.domain.command.OrganizationCreateCommand;
 import com.khaledamin.ims.organization.domain.command.OrganizationUpdateCommand;
@@ -158,7 +161,31 @@ public class OrganizationManagementServiceImpl implements OrganizationManagement
         return clientManagementService.rotateSecret(clientCode);
     }
 
+    @Transactional
+    @Override
+    public OrganizationSettings updateSettings(OrganizationSettingsUpdateRequest request) {
 
+        Actor currentActor = actorProvider.getCurrent();
+
+        Organization organization =
+                organizationQueryService.getByOwnerIdentity(
+                        currentActor.getActorIdentity()
+                );
+
+        OrganizationSettings settings = organization.getSettings();
+
+        OrganizationSettingsUpdateCommand command = OrganizationSettingsUpdateCommand.of(request);
+
+        settings.update(command);
+
+        organizationRepository.save(organization);
+
+        businessEventLogger.organizationSettingsUpdated(
+                organization.getCode()
+        );
+
+        return settings;
+    }
 
     // --------------------------------------------------- Helper methods ---------------------------------------------------
 

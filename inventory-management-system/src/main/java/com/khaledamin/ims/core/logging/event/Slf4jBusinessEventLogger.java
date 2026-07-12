@@ -468,6 +468,17 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .log("organization viewed");
     }
 
+    @Override
+    public void organizationSettingsUpdated(String organizationCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORGANIZATION)
+                .addKeyValue("event", BusinessEvent.ORGANIZATION_SETTING_UPDATED)
+                .addKeyValue("organizationCode", organizationCode)
+                .log("organization setting updated");
+    }
+
     // --------------------- End Organization events --------------------- //
 
 

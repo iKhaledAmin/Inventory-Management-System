@@ -37,8 +37,7 @@ public class OrganizationTechnicalException extends TechnicalException {
         return new OrganizationTechnicalException(OrganizationTechnicalError.IMAGE_UPLOAD_FAILED);
     }
 
-
-    public static OrganizationTechnicalException nullOrganization() {
-        return new OrganizationTechnicalException(OrganizationTechnicalError.ORGANIZATION_NULL);
+    public static OrganizationTechnicalException nullOrganizationSettingsUpdateCommand() {
+        return new OrganizationTechnicalException(OrganizationTechnicalError.SETTING_UPDATE_COMMAND_NULL);
     }
 }

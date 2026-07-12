@@ -60,6 +60,7 @@ public enum BusinessEvent {
     ORGANIZATION_CREATED,
     ORGANIZATION_UPDATED,
     ORGANIZATION_VIEWED,
+    ORGANIZATION_SETTING_UPDATED,
 
 
     // Stock events
