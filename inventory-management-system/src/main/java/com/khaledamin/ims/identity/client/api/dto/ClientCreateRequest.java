@@ -31,7 +31,7 @@ public class ClientCreateRequest {
                     - Used during client login
                     - Cannot be changed after creation
                     """,
-            example = "ecommerce-production",
+            example = "ecommerce-demo",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     @NotEmpty(message = ClientId.NULL_ERROR_MESSAGE)
@@ -48,15 +48,12 @@ public class ClientCreateRequest {
                     
                     Used only for administration and identification.
                     """,
-            example = "E-Commerce Production Integration",
+            example = "E-Commerce Demo Integration",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     @NotEmpty(message = ClientName.NULL_ERROR_MESSAGE)
     @NotBlank(message = ClientName.NULL_ERROR_MESSAGE)
-    @Size(
-            max = ClientName.MAX_LENGTH,
-            message = ClientName.MAX_LENGTH_ERROR_MESSAGE
-    )
+    @Size(max = ClientName.MAX_LENGTH, message = ClientName.MAX_LENGTH_ERROR_MESSAGE)
     private String name;
 
 
@@ -64,7 +61,7 @@ public class ClientCreateRequest {
             description = """
                     Optional client description.
                     """,
-            example = "Production integration between Inventory and E-Commerce systems",
+            example = "Demo integration between Inventory and E-Commerce systems",
             nullable = true
     )
     @JsonProperty("description")

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class ClientTokenRequest {
 
     @Schema(
-            example = "ecommerce-service",
+            example = "ecommerce-demo",
             description = "Registered client identifier",
             requiredMode = Schema.RequiredMode.REQUIRED
     )

@@ -25,7 +25,7 @@ public class ClientResponse {
             description = """
                     Public client identifier used during authentication.
                     """,
-            example = "ecommerce-production"
+            example = "ecommerce-demo"
     )
     @JsonProperty("client_id")
     private String clientId;

@@ -39,34 +39,42 @@ public class OpenApiConfiguration {
                 .info(
                         new Info()
                                 .title("Inventory Management System API")
-                                .version("v1")
+                                .version("1.0.0")
                                 .description("""
-                                        Inventory Management System (IMS).
+                                        Multi-Tenant Inventory Management Platform.
 
-                                        The IMS is the authoritative source of truth for inventory operations.
+                                        IMS is the authoritative source of truth for inventory operations across the ecosystem.
 
-                                        Responsibilities:
+                                        Core Responsibilities:
                                         - Inventory ownership
                                         - Stock management
-                                        - Stock batches
+                                        - Batch tracking
                                         - Inventory availability
                                         - Stock reservations
+                                        - Reservation lifecycle management
+                                        - Inventory allocation
                                         - Inventory integrations
 
                                         Supported Actors:
-                                        - Account (human-actor)
-                                        - Client  (non-human-actor)
-                                         
+                                        - Account (Human Actor)
+                                        - Client (Machine Actor)
 
                                         Authentication:
-                                        JWT Bearer Token
+                                        - JWT Bearer Authentication
 
                                         Authorization:
-                                        - RBAC
-                                        - Permission-Based Authorization for Human-Actor (Account)
-                                        - Scopes Authorization for Machines (Client)
+                                        - Role-Based Access Control (RBAC)
+                                        - Capability-Based Authorization
+                                        - Scope-Based Machine Authorization
 
-                                        Response Contracts:
+                                        Platform Features:
+                                        - Multi-tenant organization isolation
+                                        - Reservation expiration workflows
+                                        - Auditing and actor attribution
+                                        - Structured logging and observability
+                                        - Verification and notification infrastructure
+
+                                        Standard Response Contracts:
                                         - ApiResponse<T>
                                         - ApiPageResponse<T>
                                         - ApiErrorResponse

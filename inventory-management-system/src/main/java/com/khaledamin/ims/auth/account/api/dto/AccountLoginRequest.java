@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class AccountLoginRequest {
 
     @Schema(
-            example = "khaled-amin",
+            example = "system-admin",
             description = "Account username",
             requiredMode = Schema.RequiredMode.REQUIRED
     )

@@ -2,7 +2,6 @@ package com.khaledamin.ims.reservation.api.documentation.annotations;
 
 import com.khaledamin.ims.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.khaledamin.ims.core.api.documentation.annotations.UnauthenticatedApiDocs;
-import com.khaledamin.ims.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.khaledamin.ims.core.api.documentation.examples.UnauthorizedExamples;
 import com.khaledamin.ims.core.api.response.ApiErrorResponse;
 import com.khaledamin.ims.reservation.api.documentation.examples.ReservationCreateExamples;
