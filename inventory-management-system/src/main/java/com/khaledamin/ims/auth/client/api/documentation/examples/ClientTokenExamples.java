@@ -107,7 +107,7 @@ public final class ClientTokenExamples {
             "path": "/auth/clients/token",
             "details": {
                   "reason": "Invalid client id or client secret"
-                },
+                }
           }
         }
         """;
