@@ -10,7 +10,7 @@
 - [API Documentation](#api-documentation)
 
 ---
-
+<a id="overview"></a>
 ## Overview ✨
 
 Inventory Management System (IMS) is a multi-tenant inventory platform that serves as the authoritative source of truth for inventory operations across commerce ecosystems.
@@ -24,9 +24,10 @@ This platform provides reservation-based inventory operations workflows through 
 As a multi-tenant solution, IMS supports organization-level inventory ownership that maintaining tenant isolation, actor-based abstraction, auditing, and secure system-to-system integrations, providing a scalable foundation for organizations that require centralized and reliable inventory management.
 
 
-
-
+---
+<a id="features"></a>
 ## Features ✨
+
 
 ### Identity & Access Management
 
@@ -118,7 +119,10 @@ Provide operational visibility and traceability across all inventory workflows.
 - Entity lifecycle auditing
 
 
+---
+<a id="technologies-used"></a>
 ## Technologies Used 🛠️
+
 
 ### Backend & Framework
 
@@ -205,21 +209,26 @@ Provide operational visibility and traceability across all inventory workflows.
 - Docker
 - Docker Compose
 
-
-
+---
+<a id="entity-relationship-diagram"></a>
 ## Entity Relationship Diagram 🗄️
 
 The following Entity Relationship Diagram (ERD) represents the core domain model of the Inventory Management System.
 
 ![Inventory Management System ERD](docs/diagrams/ims-erd.jpg)
 
-
+---
+<a id="system-design-specification"></a>
 ## System Design Specification 📘
 
 A detailed architectural specification describing the platform architecture, domain model, inventory reservation workflows, multi-tenant design, integration architecture, consistency strategies, and operational considerations is available below.
 
 📄 [Inventory Management System Specification](docs/specifications/inventory-management-system-specification.pdf)
 
+
+
+---
+<a id="api-documentation"></a>
 ## API Documentation 📑
 
 The Inventory Management System exposes a fully documented OpenAPI 3 specification covering authentication, organization management, stock management, reservation workflows, and machine-to-machine integrations.
