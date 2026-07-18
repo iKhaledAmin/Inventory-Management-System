@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Architecture Highlights](#architecture-highlights)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
@@ -22,6 +23,28 @@ This platform enables organizations to manage its inventory through a dedicated 
 This platform provides reservation-based inventory operations workflows through secure machine-to-machine APIs for reserving, confirming, and releasing stock, enabling reliable ccritical business processes such as checkout and order fulfillment across distributed systems.
 
 As a multi-tenant solution, IMS supports organization-level inventory ownership that maintaining tenant isolation, actor-based abstraction, auditing, and secure system-to-system integrations, providing a scalable foundation for organizations that require centralized and reliable inventory management.
+
+
+
+---
+<a id="architecture-highlights"></a>
+## Architecture Highlights 🏗️
+
+- Modular Monolith Architecture
+- Domain-Driven Design (DDD)
+- Multi-Tenant Inventory Ownership Model
+- Organization-Scoped Data Isolation
+- Reservation-Based Inventory Management
+- Machine-to-Machine Integration APIs
+- Actor-Based Identity Architecture
+- Role-Based Access Control (RBAC)
+- Capability-Based Authorization
+- Inventory System as Source of Truth
+- Structured Logging & Request Tracing
+- Entity Auditing & Business Event Tracking
+- Scheduled Reservation Expiration Processing
+- Integration-Ready Service Boundaries
+
 
 
 ---
